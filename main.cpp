@@ -153,7 +153,7 @@ void SetOfCalcButtons(char* f, bool& input)
     ImGui::SameLine();
     if (SignAndOperationButton("+"))
         AddSign(f, "+");
-    if (NumFunButton("?"))
+    if (NumFunButton("Help"))
         ;
     ImGui::SameLine();
     if (NumFunButton("0"))
