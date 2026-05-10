@@ -1,18 +1,22 @@
 ﻿#include "CalculatorApp.h"
 #include <cmath>
+#include "Parser.h"
 
 CalculatorApp::CalculatorApp()
 {
     formula.reserve(BUFFER_SIZE);
-    parsed_formula = "1/x";
-    derivative_formula = "-1/(x^2)";
 
-    spec.LineWeight = 3.0f;
     window_flags =  ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoCollapse;
+    
+    prev_limits.X.Min = -10;
+    prev_limits.X.Max = 10;
+    prev_limits.Y.Min = -10;
+    prev_limits.Y.Max = 10;
 
-    x_points.resize(STEPS);
-    y_points.resize(STEPS);
-    der_points.resize(STEPS);
+    x_points.resize((int)(1.5 * STEPS));
+    y_points.resize((int)(1.5 * STEPS));
+    x_der_points.resize((int)(1.5 * STEPS));
+    y_der_points.resize((int)(1.5 * STEPS));
 }
 
 void CalculatorApp::AddSign(const char* sign)
@@ -22,14 +26,14 @@ void CalculatorApp::AddSign(const char* sign)
     if (formula_size + sign_size + 1 <= BUFFER_SIZE)
     {
         formula.insert(last_cursor_position, sign);
-        last_cursor_position += sign_size;
+        last_cursor_position += (int)sign_size;
         input_focus = true;
     }
     else
         input_focus = false;
 }
 
-bool CalculatorApp::NumFunButton(const char* sign)
+bool CalculatorApp::NumberButton(const char* sign)
 {
     ImGui::PushID(sign);
     ImGui::PushFont(NULL, 32);
@@ -86,8 +90,8 @@ bool CalculatorApp::SignAndOperationButton(const char* sign)
 bool CalculatorApp::FunctionButton(const char* sign)
 {
     ImGui::PushID(sign);
-    ImGui::PushFont(NULL, 28);
-    ImVec2 size = ImVec2(80, 60);
+    ImGui::PushFont(NULL, 30);
+    ImVec2 size = ImVec2(140, 80);
 
     ImVec2 p = ImGui::GetCursorScreenPos();
     bool clicked = ImGui::InvisibleButton(sign, size);
@@ -112,8 +116,10 @@ bool CalculatorApp::FunctionButton(const char* sign)
 
 void CalculatorApp::SetOfCalcButtons()
 {
-    if (SignAndOperationButton("π"))
-        AddSign("π");
+    //if (SignAndOperationButton("π"))
+    //    AddSign("π");
+    if (SignAndOperationButton("PI"))
+        AddSign("PI");
     ImGui::SameLine();
     if (SignAndOperationButton("e"))
         AddSign("e");
@@ -124,52 +130,56 @@ void CalculatorApp::SetOfCalcButtons()
         input_focus = true;
     }
     ImGui::SameLine();
-    if (SignAndOperationButton("÷"))
-        AddSign("÷");
-    if (NumFunButton("7"))
+    //if (SignAndOperationButton("÷"))
+    //    AddSign("÷");
+    if (SignAndOperationButton("/"))
+        AddSign("/");
+    if (NumberButton("7"))
         AddSign("7");
     ImGui::SameLine();
-    if (NumFunButton("8"))
+    if (NumberButton("8"))
         AddSign("8");
     ImGui::SameLine();
-    if (NumFunButton("9"))
+    if (NumberButton("9"))
         AddSign("9");
     ImGui::SameLine();
-    if (SignAndOperationButton("×"))
-        AddSign("×");
-    if (NumFunButton("4"))
+    //if (SignAndOperationButton("×"))
+    //    AddSign("×");
+    if (SignAndOperationButton("*"))
+        AddSign("*");
+    if (NumberButton("4"))
         AddSign("4");
     ImGui::SameLine();
-    if (NumFunButton("5"))
+    if (NumberButton("5"))
         AddSign("5");
     ImGui::SameLine();
-    if (NumFunButton("6"))
+    if (NumberButton("6"))
         AddSign("6");
     ImGui::SameLine();
     if (SignAndOperationButton("-"))
         AddSign("-");
-    if (NumFunButton("1"))
+    if (NumberButton("1"))
         AddSign("1");
     ImGui::SameLine();
-    if (NumFunButton("2"))
+    if (NumberButton("2"))
         AddSign("2");
     ImGui::SameLine();
-    if (NumFunButton("3"))
+    if (NumberButton("3"))
         AddSign("3");
     ImGui::SameLine();
     if (SignAndOperationButton("+"))
         AddSign("+");
-    if (NumFunButton("Help"))
+    if (NumberButton("Help"))
         ;
     ImGui::SameLine();
-    if (NumFunButton("0"))
+    if (NumberButton("0"))
         AddSign("0");
     ImGui::SameLine();
-    if (NumFunButton("."))
+    if (NumberButton("."))
         AddSign(".");
     ImGui::SameLine();
     if (SignAndOperationButton("="))
-        ;
+        ParseFormula();
 }
 
 void CalculatorApp::TabOfFunctions(float width)
@@ -190,63 +200,63 @@ void CalculatorApp::TabOfFunctions(float width)
         if (ImGui::BeginTabItem("Trigonometric"))
         {
             ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
-            if (NumFunButton("sin(x)"))
+            if (FunctionButton("sin(x)"))
                 AddSign("sin(x)");
             ImGui::SameLine();
-            if (NumFunButton("cos(x)"))
+            if (FunctionButton("cos(x)"))
                 AddSign("cos(x)");
             ImGui::SameLine();
-            if (NumFunButton("tan(x)"))
+            if (FunctionButton("tan(x)"))
                 AddSign("tan(x)");
-            if (NumFunButton("asin(x)"))
-                AddSign("asin(x)");
+            if (FunctionButton("arcsin(x)"))
+                AddSign("arcsin(x)");
             ImGui::SameLine();
-            if (NumFunButton("acos(x)"))
-                AddSign("acos(x)");
+            if (FunctionButton("arccos(x)"))
+                AddSign("arccos(x)");
             ImGui::SameLine();
-            if (NumFunButton("atan(x)"))
-                AddSign("atan(x)");
+            if (FunctionButton("arctan(x)"))
+                AddSign("arctan(x)");
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Hyperbolic"))
         {
             ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
-            if (NumFunButton("sinh(x)"))
+            if (FunctionButton("sinh(x)"))
                 AddSign("sinh(x)");
             ImGui::SameLine();
-            if (NumFunButton("cosh(x)"))
+            if (FunctionButton("cosh(x)"))
                 AddSign("cosh(x)");
             ImGui::SameLine();
-            if (NumFunButton("tanh(x)"))
+            if (FunctionButton("tanh(x)"))
                 AddSign("tanh(x)");
-            if (NumFunButton("asinh(x)"))
-                AddSign("asinh(x)");
+            if (FunctionButton("arsinh(x)"))
+                AddSign("arsinh(x)");
             ImGui::SameLine();
-            if (NumFunButton("acosh(x)"))
-                AddSign("acosh(x)");
+            if (FunctionButton("arcosh(x)"))
+                AddSign("arcosh(x)");
             ImGui::SameLine();
-            if (NumFunButton("atanh(x)"))
-                AddSign("atanh(x)");
+            if (FunctionButton("artanh(x)"))
+                AddSign("artanh(x)");
             ImGui::EndTabItem();
         }
         if (ImGui::BeginTabItem("Exp. & Log."))
         {
             ImGui::SetCursorPosY(ImGui::GetCursorPosY() + 20);
-            if (NumFunButton("x^a"))
-                AddSign("x^a");
+            if (FunctionButton("pow(x, a)"))
+                AddSign("pow(x, a)");
             ImGui::SameLine();
-            if (NumFunButton("e^x"))
-                AddSign("e^x");
+            if (FunctionButton("pow(e, x)"))
+                AddSign("pow(e, x)");
             ImGui::SameLine();
-            if (NumFunButton("a^x"))
-                AddSign("a^x");
-            if (NumFunButton("ln(x)"))
+            if (FunctionButton("sqrt(x)"))
+                AddSign("sqrt(x)");
+            if (FunctionButton("ln(x)"))
                 AddSign("ln(x)");
             ImGui::SameLine();
-            if (NumFunButton("log10(x)"))
+            if (FunctionButton("log10(x)"))
                 AddSign("log10(x)");
             ImGui::SameLine();
-            if (NumFunButton("log(a, x)"))
+            if (FunctionButton("log(a, x)"))
                 AddSign("log(a, x)");
             ImGui::EndTabItem();
         }
@@ -293,9 +303,13 @@ void CalculatorApp::Render(void)
     if (input_focus)
         ImGui::SetKeyboardFocusHere();
 
-    ImGui::InputText("##Formula", &formula,
+    if (ImGui::InputText("##Formula", &formula,
         ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CallbackAlways,
-        FormulaInputCallback, this);
+        FormulaInputCallback, this))
+    {
+        ParseFormula();
+        input_focus = true;
+    }
     ImGui::PopFont();
 
     SetOfCalcButtons();
@@ -322,27 +336,16 @@ void CalculatorApp::Render(void)
 
         ImPlot::SetupAxes("x", "y");
 
-        ImPlotRect limits = ImPlot::GetPlotLimits();
-        double x_min = limits.X.Min;
-        double x_max = limits.X.Max;
-        double range = x_max - x_min;
+        ImPlotSpec axis_spec;
+        axis_spec.LineWeight = 2.0f;
+        axis_spec.LineColor = ImVec4(0.8f, 0.8f, 0.8f, 1.0f);
+        double zero = 0.0;
+        ImPlot::PlotInfLines("##Y_Axis", &zero, 1, axis_spec);
+        axis_spec.Flags = ImPlotInfLinesFlags_Horizontal;
+        ImPlot::PlotInfLines("##X_Axis", &zero, 1, axis_spec);
 
-        for (int i = 0; i < STEPS; ++i)
-        {
-            float x = (float)(x_min + (range * i / (STEPS - 1)));
-            x_points[i] = x;
+        ShowFormulaPlot();
 
-            double dx = range / STEPS;
-            if (std::abs(x) < dx * 0.5)
-                y_points[i] = der_points[i] = NAN;
-            else
-            {
-                y_points[i] = 1.0f / x;
-                der_points[i] = -1.0f / (float)pow(x, 2);
-            }
-        }
-        ImPlot::PlotLine("f(x) = 1/x", x_points.data(), y_points.data(), STEPS, spec);
-        ImPlot::PlotLine("f'(x) = -1/(x^2)", x_points.data(), der_points.data(), STEPS, spec);
         ImPlot::EndPlot();
     }
 
@@ -362,4 +365,146 @@ void CalculatorApp::Render(void)
     ImGui::EndGroup();
 
     ImGui::End();
+}
+
+void CalculatorApp::ParseFormula()
+{
+    std::vector<Token> tokens;
+    std::string formula_part;
+    Token new_token;
+    int i = 0;
+    if (!formula.empty() && formula[0] == '-')
+    {
+        i++;
+        new_token.val = '0';
+        new_token.token_type = Token::TokenType::CONSTANT;
+        tokens.push_back(new_token);
+        new_token.val = '-';
+        new_token.token_type = Token::TokenType::OPERATOR;
+        tokens.push_back(new_token);
+        formula_part.clear();
+    }
+
+    for (; i < formula.size(); ++i)
+    {
+        if (isblank(formula[i]))
+            continue;
+        else if (isalnum(formula[i]) || formula[i] == '.')
+            formula_part += formula[i];
+        else if (OperatorSign(formula[i]))
+        {
+            if (!formula_part.empty())
+            {
+                if (CheckToken(formula_part, new_token))
+                {
+                    tokens.push_back(new_token);
+                    formula_part.clear();
+                }
+                else 
+                    return;
+            }    
+            tokens.push_back(CreateOperatorToken(formula[i]));
+        }
+        else
+            return;
+    }
+
+    if (!formula_part.empty())
+    {
+        if (CheckToken(formula_part, new_token))
+        {
+            tokens.push_back(new_token);
+            formula_part.clear();
+        }
+        else
+            return;
+    }
+
+    head_formula = ModifyToRPN(tokens);
+    if (head_formula != nullptr)
+    {
+        formula_changed = true;
+        parsed_formula = "f(x)=" + formula;
+        head_derivative = head_formula->GetDerivative();
+    }
+}
+
+void CalculatorApp::ShowFormulaPlot()
+{
+    if (head_formula != nullptr)
+    {
+        ImPlotRect limits = ImPlot::GetPlotLimits();
+        bool camera_moved = (prev_limits.X.Min != limits.X.Min) || (prev_limits.X.Max != limits.X.Max) || 
+            (prev_limits.Y.Min != limits.Y.Min) || (prev_limits.Y.Max != limits.Y.Max);
+
+        if (camera_moved || formula_changed)
+        {
+            x_points.clear();
+            y_points.clear();
+            x_der_points.clear();
+            y_der_points.clear();
+            formula_changed = false;
+
+            double x_min = limits.X.Min;
+            double x_max = limits.X.Max;
+            double x_range = x_max - x_min;
+            double y_range = limits.Y.Max - limits.Y.Min;
+            float prev_y = NAN;
+            float prev_der_y = NAN;
+
+            for (int i = 0; i < STEPS; ++i)
+            {
+                float x = (float)(x_min + (x_range * i / (STEPS - 1)));
+                float y = head_formula->Calculate(x);
+                if (std::isinf(y)) y = NAN;
+
+                if (!std::isnan(prev_y) && !std::isnan(y))
+                {
+                    bool sign_changed = (prev_y > 0.0f && y < 0.0f) || (prev_y < 0.0f && y > 0.0f);
+                    bool jump = std::abs(y - prev_y) > (y_range * 1.5);
+
+                    if (sign_changed && jump)
+                    {
+                        x_points.push_back(x);
+                        y_points.push_back(NAN);
+                    }
+                }
+                x_points.push_back(x);
+                y_points.push_back(y);
+                prev_y = y;
+
+                if (head_derivative != nullptr)
+                {
+                    float der_y = head_derivative->Calculate(x);
+                    if (std::isinf(der_y)) der_y = NAN;
+
+                    if (!std::isnan(prev_der_y) && !std::isnan(der_y))
+                    {
+                        bool sign_changed = (prev_der_y > 0.0f && der_y < 0.0f) || (prev_der_y < 0.0f && der_y > 0.0f);
+                        bool jump = std::abs(der_y - prev_der_y) > (y_range * 1.5);
+
+                        if (sign_changed && jump)
+                        {
+                            x_der_points.push_back(x);
+                            y_der_points.push_back(NAN);
+                        }
+                    }
+                    x_der_points.push_back(x);
+                    y_der_points.push_back(der_y);
+
+                    prev_der_y = der_y;
+                }
+            }
+            prev_limits = limits;
+        }
+        ImPlotSpec f_x_spec;
+        f_x_spec.LineWeight = 3.0f;
+        f_x_spec.LineColor = ImVec4(0.26f, 0.53f, 0.96f, 1.0f);
+        ImPlot::PlotLine(parsed_formula.c_str(), x_points.data(), y_points.data(), (int)x_points.size(), f_x_spec); 
+        if (head_derivative != nullptr && !x_der_points.empty())
+        {
+            f_x_spec.LineColor = ImVec4(0.99f, 0.73f, 0.01f, 1.0f);
+            ImPlot::PlotLine("f'(x)", x_der_points.data(), y_der_points.data(), (int)x_der_points.size(), f_x_spec);
+        }
+    }
 }

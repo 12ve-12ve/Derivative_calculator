@@ -13,5 +13,16 @@
 - Improved User Interface.
 - Improved inner workings.
 
-## [Demo 2] - (Planned)
-- Equation parsing.
+## [Demo 2] - 2026-05-10
+## Added
+- Implemented an engine to parse any given formula into a tree structure
+- Creating a derivative tree based on the formula tree
+- Visualisation of both formula and its derivative 
+- Engine supports basic math operations, trigonometric functions, hyperbolic functions, logarithms
+- Added X and Y axis
+
+## [Demo 3]
+## Planned
+- Handling wrong formulas
+- Updates to UI
+- Creating a string for derivative from derivative tree
