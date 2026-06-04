@@ -68,9 +68,6 @@
     <ClCompile Include="External\ImGui\imgui.cpp">
       <Filter>Source Files\ImGui</Filter>
     </ClCompile>
-    <ClCompile Include="External\ImGui\imgui_demo.cpp">
-      <Filter>Source Files\ImGui</Filter>
-    </ClCompile>
     <ClCompile Include="External\ImGui\imgui_draw.cpp">
       <Filter>Source Files\ImGui</Filter>
     </ClCompile>
@@ -87,9 +84,6 @@
       <Filter>Source Files\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="External\ImGui\implot.cpp">
-      <Filter>Source Files\ImGui</Filter>
-    </ClCompile>
-    <ClCompile Include="External\ImGui\implot_demo.cpp">
       <Filter>Source Files\ImGui</Filter>
     </ClCompile>
     <ClCompile Include="External\ImGui\implot_items.cpp">

@@ -1,0 +1,214 @@
+\doxysection{Token Struct Reference}
+\hypertarget{struct_token}{}\label{struct_token}\index{Token@{Token}}
+
+
+Represents a single token generated during the parsing of a formula.  
+
+
+
+
+{\ttfamily \+\#include $<$Parser.\+h$>$}
+
+\doxysubsubsection*{Public Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \doxymbox{\hyperlink{struct_token_ad80928a0dff686ec8d11da0b5d6944a2}{Token\+Type}} \{ \newline
+\doxymbox{\hyperlink{struct_token_ad80928a0dff686ec8d11da0b5d6944a2ae61ad9b2553a293b4a3f4d3b4fa5ab31}{VARIABLE}}
+, \doxymbox{\hyperlink{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a8d6b5cada83510220f59e00ce86d4d92}{CONSTANT}}
+, \doxymbox{\hyperlink{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a986496ca5b23669b8661171566a167c3}{OPERATOR}}
+, \doxymbox{\hyperlink{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a4ff0e1e2b5bddff6399cc0d202022884}{UNARY\+\_\+\+FUN}}
+, \newline
+\doxymbox{\hyperlink{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a25aa68852daffb11dbb9b934b62e9416}{BINARY\+\_\+\+FUN}}
+, \doxymbox{\hyperlink{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a7fe5b60684c6f8043faa18c154a81ead}{PARENTHESIS\+\_\+L}}
+, \doxymbox{\hyperlink{struct_token_ad80928a0dff686ec8d11da0b5d6944a2aa9da7207cc5c9d798f32616cb43a63c6}{PARENTHESIS\+\_\+R}}
+, \doxymbox{\hyperlink{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a4d9b3e9fc12849d060371eb65154c751}{COMMA}}
+ \}
+\begin{DoxyCompactList}\small\item\em Defines the specific types of tokens recognized by the parser. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{struct_token_a7343bed87e77b4f2e69919a65d492446}{Token}} (\doxymbox{\hyperlink{struct_token_ad80928a0dff686ec8d11da0b5d6944a2}{Token::\+\+Token\+Type}} t\+\_\+type=\doxymbox{\hyperlink{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a8d6b5cada83510220f59e00ce86d4d92}{Token\+Type::\+\+CONSTANT}}, const std::\+string \&str="{}"{})
+\begin{DoxyCompactList}\small\item\em Default and parameterized constructor for the \doxylink{struct_token}{Token}. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{struct_token_a0a1a9cc0e5d25fbdfd8b353e112d4a54}{Token}} (const \doxymbox{\hyperlink{struct_token}{Token}} \&t)
+\begin{DoxyCompactList}\small\item\em Copy constructor. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{struct_token}{Token}} \& \doxymbox{\hyperlink{struct_token_aad9e054fc8700ef937bbde8055809c54}{operator=}} (const \doxymbox{\hyperlink{struct_token}{Token}} \&t)
+\begin{DoxyCompactList}\small\item\em Copy assignment operator. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{struct_token_ad80928a0dff686ec8d11da0b5d6944a2}{Token\+Type}} \doxymbox{\hyperlink{struct_token_a954cead907fd8e257a34467ad4e0fbc5}{token\+\_\+type}}
+\begin{DoxyCompactList}\small\item\em The type of this token. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{struct_token_a69b28a8c59694d7cef5b947bc7ffb423}{val}}
+\begin{DoxyCompactList}\small\item\em The representation of the token. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Represents a single token generated during the parsing of a formula. 
+
+
+\begin{DoxyItemize}
+\item The tokenizer breaks down the user input into a sequence of tokens, which are later processed to build the Abstract Syntax Tree (AST). 
+\end{DoxyItemize}
+
+\label{struct_token_doc-enum-members}
+\Hypertarget{struct_token_doc-enum-members}
+\doxysubsection{Member Enumeration Documentation}
+\Hypertarget{struct_token_ad80928a0dff686ec8d11da0b5d6944a2}\index{Token@{Token}!TokenType@{TokenType}}
+\index{TokenType@{TokenType}!Token@{Token}}
+\doxysubsubsection{\texorpdfstring{TokenType}{TokenType}}
+{\footnotesize\ttfamily \label{struct_token_ad80928a0dff686ec8d11da0b5d6944a2} 
+enum class \doxymbox{\hyperlink{struct_token_ad80928a0dff686ec8d11da0b5d6944a2}{Token::\+\+Token\+Type}}\hspace{0.3cm}{\ttfamily [strong]}}
+
+
+
+Defines the specific types of tokens recognized by the parser. 
+
+\begin{DoxyEnumFields}[2]{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{VARIABLE@{VARIABLE}!Token@{Token}}
+\index{Token@{Token}!VARIABLE@{VARIABLE}}
+}\Hypertarget{struct_token_ad80928a0dff686ec8d11da0b5d6944a2ae61ad9b2553a293b4a3f4d3b4fa5ab31}\label{struct_token_ad80928a0dff686ec8d11da0b5d6944a2ae61ad9b2553a293b4a3f4d3b4fa5ab31} 
+VARIABLE&Represents the variable \textquotesingle{}x\textquotesingle{}. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{CONSTANT@{CONSTANT}!Token@{Token}}
+\index{Token@{Token}!CONSTANT@{CONSTANT}}
+}\Hypertarget{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a8d6b5cada83510220f59e00ce86d4d92}\label{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a8d6b5cada83510220f59e00ce86d4d92} 
+CONSTANT&Represents a constant number. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{OPERATOR@{OPERATOR}!Token@{Token}}
+\index{Token@{Token}!OPERATOR@{OPERATOR}}
+}\Hypertarget{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a986496ca5b23669b8661171566a167c3}\label{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a986496ca5b23669b8661171566a167c3} 
+OPERATOR&Represents a basic arithmetic operator (+, -\/, \texorpdfstring{$\ast$}{*}, /\+). \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{UNARY\_FUN@{UNARY\_FUN}!Token@{Token}}
+\index{Token@{Token}!UNARY\_FUN@{UNARY\_FUN}}
+}\Hypertarget{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a4ff0e1e2b5bddff6399cc0d202022884}\label{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a4ff0e1e2b5bddff6399cc0d202022884} 
+UNARY\+\_\+\+FUN&Represents a function taking a single argument. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{BINARY\_FUN@{BINARY\_FUN}!Token@{Token}}
+\index{Token@{Token}!BINARY\_FUN@{BINARY\_FUN}}
+}\Hypertarget{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a25aa68852daffb11dbb9b934b62e9416}\label{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a25aa68852daffb11dbb9b934b62e9416} 
+BINARY\+\_\+\+FUN&Represents a function taking two arguments. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PARENTHESIS\_L@{PARENTHESIS\_L}!Token@{Token}}
+\index{Token@{Token}!PARENTHESIS\_L@{PARENTHESIS\_L}}
+}\Hypertarget{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a7fe5b60684c6f8043faa18c154a81ead}\label{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a7fe5b60684c6f8043faa18c154a81ead} 
+PARENTHESIS\+\_\+L&Represents a left opening parenthesis \textquotesingle{}(\textquotesingle{}. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PARENTHESIS\_R@{PARENTHESIS\_R}!Token@{Token}}
+\index{Token@{Token}!PARENTHESIS\_R@{PARENTHESIS\_R}}
+}\Hypertarget{struct_token_ad80928a0dff686ec8d11da0b5d6944a2aa9da7207cc5c9d798f32616cb43a63c6}\label{struct_token_ad80928a0dff686ec8d11da0b5d6944a2aa9da7207cc5c9d798f32616cb43a63c6} 
+PARENTHESIS\+\_\+R&Represents a right closing parenthesis \textquotesingle{})\textquotesingle{}. \\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{COMMA@{COMMA}!Token@{Token}}
+\index{Token@{Token}!COMMA@{COMMA}}
+}\Hypertarget{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a4d9b3e9fc12849d060371eb65154c751}\label{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a4d9b3e9fc12849d060371eb65154c751} 
+COMMA&Represents a comma separator for multi-\/argument functions. \\
+\hline
+
+\end{DoxyEnumFields}
+
+
+\label{struct_token_doc-constructors}
+\Hypertarget{struct_token_doc-constructors}
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{struct_token_a7343bed87e77b4f2e69919a65d492446}\index{Token@{Token}!Token@{Token}}
+\index{Token@{Token}!Token@{Token}}
+\doxysubsubsection{\texorpdfstring{Token()}{Token()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \label{struct_token_a7343bed87e77b4f2e69919a65d492446} 
+Token::\+\+Token (\begin{DoxyParamCaption}\item[{\doxymbox{\hyperlink{struct_token_ad80928a0dff686ec8d11da0b5d6944a2}{Token::\+\+Token\+Type}}}]{t\+\_\+type}{ = {\ttfamily \doxymbox{\hyperlink{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a8d6b5cada83510220f59e00ce86d4d92}{Token\+Type::\+\+CONSTANT}}}, }\item[{const std::\+string \&}]{str}{ = {\ttfamily "{}"{}}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Default and parameterized constructor for the \doxylink{struct_token}{Token}. 
+
+
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}{Parameters}
+{\em t\+\_\+type} & The type of the token. Defaults to \doxylink{struct_token_ad80928a0dff686ec8d11da0b5d6944a2a8d6b5cada83510220f59e00ce86d4d92}{Token\+Type::\+\+CONSTANT}. \\
+\hline
+{\em str} & The string value of the token. Defaults to an empty string. \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}\Hypertarget{struct_token_a0a1a9cc0e5d25fbdfd8b353e112d4a54}\index{Token@{Token}!Token@{Token}}
+\index{Token@{Token}!Token@{Token}}
+\doxysubsubsection{\texorpdfstring{Token()}{Token()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily \label{struct_token_a0a1a9cc0e5d25fbdfd8b353e112d4a54} 
+Token::\+\+Token (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_token}{Token}} \&}]{t}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Copy constructor. 
+
+
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}{Parameters}
+{\em t} & Existing \doxylink{struct_token}{Token} to copy from. \\
+\hline
+\end{DoxyParams}
+
+\end{DoxyItemize}
+
+\label{struct_token_doc-func-members}
+\Hypertarget{struct_token_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{struct_token_aad9e054fc8700ef937bbde8055809c54}\index{Token@{Token}!operator=@{operator=}}
+\index{operator=@{operator=}!Token@{Token}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily \label{struct_token_aad9e054fc8700ef937bbde8055809c54} 
+\doxymbox{\hyperlink{struct_token}{Token}} \& Token::\+operator= (\begin{DoxyParamCaption}\item[{const \doxymbox{\hyperlink{struct_token}{Token}} \&}]{t}{}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Copy assignment operator. 
+
+
+\begin{DoxyItemize}
+\item 
+\begin{DoxyParams}{Parameters}
+{\em t} & \doxylink{struct_token}{Token} to assign from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{struct_token}{Token}\& A reference to this \doxylink{struct_token}{Token}. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}
+
+\label{struct_token_doc-variable-members}
+\Hypertarget{struct_token_doc-variable-members}
+\doxysubsection{Member Data Documentation}
+\Hypertarget{struct_token_a954cead907fd8e257a34467ad4e0fbc5}\index{Token@{Token}!token\_type@{token\_type}}
+\index{token\_type@{token\_type}!Token@{Token}}
+\doxysubsubsection{\texorpdfstring{token\_type}{token\_type}}
+{\footnotesize\ttfamily \label{struct_token_a954cead907fd8e257a34467ad4e0fbc5} 
+\doxymbox{\hyperlink{struct_token_ad80928a0dff686ec8d11da0b5d6944a2}{Token\+Type}} Token::\+token\+\_\+type}
+
+
+
+The type of this token. 
+
+\Hypertarget{struct_token_a69b28a8c59694d7cef5b947bc7ffb423}\index{Token@{Token}!val@{val}}
+\index{val@{val}!Token@{Token}}
+\doxysubsubsection{\texorpdfstring{val}{val}}
+{\footnotesize\ttfamily \label{struct_token_a69b28a8c59694d7cef5b947bc7ffb423} 
+std::\+string Token::\+val}
+
+
+
+The representation of the token. 
+
+
+
+The documentation for this struct was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+Derivative Calculator/\+\+Derivative Calculator/\+\doxymbox{\hyperlink{_parser_8h}{Parser.\+h}}\end{DoxyCompactItemize}

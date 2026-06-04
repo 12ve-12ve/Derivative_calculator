@@ -1,0 +1,150 @@
+\doxysection{Mult\+Node Class Reference}
+\hypertarget{class_mult_node}{}\label{class_mult_node}\index{MultNode@{MultNode}}
+
+
+\doxylink{class_node}{Node} representing a multiplication operation.  
+
+
+
+
+{\ttfamily \+\#include $<$Formula\+Tree.\+h$>$}
+
+Inheritance diagram for Mult\+Node:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_mult_node}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \doxymbox{\hyperlink{class_mult_node_ae9bd8129fdff4fad0488486a2c211cc4}{Calculate}} (float x) const override
+\begin{DoxyCompactList}\small\item\em Calculates the value of the function at a given point. \end{DoxyCompactList}\item 
+std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$ \doxymbox{\hyperlink{class_mult_node_a03e593bf49172e42cc135db73513ea1e}{Clone}} () const override
+\begin{DoxyCompactList}\small\item\em Creates a deep copy of the node. \end{DoxyCompactList}\item 
+std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$ \doxymbox{\hyperlink{class_mult_node_a0502799692b7db1128b61c54102ff378}{Get\+Derivative}} () const override
+\begin{DoxyCompactList}\small\item\em Generates the derivative tree for this node. Uses the formula (f \texorpdfstring{$\ast$}{*} g)\textquotesingle{} = f\textquotesingle{} \texorpdfstring{$\ast$}{*} g + f \texorpdfstring{$\ast$}{*} g\textquotesingle{}. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_mult_node_a9fa3ec59cc1f91ff8d7426ee84d3040f}{To\+String}} () const override
+\begin{DoxyCompactList}\small\item\em Converts the tree structure into a string. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_mult_node_a2f92a401ec1f07ef15b2fbaa9772c39d}{Binary\+Node}} (std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$ left\+\_\+node=nullptr, std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$ right\+\_\+node=nullptr)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_binary_node}{Binary\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_binary_node_a2f92a401ec1f07ef15b2fbaa9772c39d}{Binary\+Node}} (std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$ left\+\_\+node=nullptr, std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$ right\+\_\+node=nullptr)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_node}{Node}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \doxymbox{\hyperlink{class_node_abce703f211f6a577085b4b8ad68cbb19}{\texorpdfstring{$\sim$}{\string~}\+Node}} ()=default
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \doxymbox{\hyperlink{class_binary_node}{Binary\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\+\_\+child}}
+\item 
+std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\+\_\+child}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_node}{Node} representing a multiplication operation. 
+
+\label{class_mult_node_doc-func-members}
+\Hypertarget{class_mult_node_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_mult_node_a2f92a401ec1f07ef15b2fbaa9772c39d}\index{MultNode@{MultNode}!BinaryNode@{BinaryNode}}
+\index{BinaryNode@{BinaryNode}!MultNode@{MultNode}}
+\doxysubsubsection{\texorpdfstring{BinaryNode()}{BinaryNode()}}
+{\footnotesize\ttfamily \label{class_mult_node_a2f92a401ec1f07ef15b2fbaa9772c39d} 
+\doxymbox{\hyperlink{class_binary_node_a2f92a401ec1f07ef15b2fbaa9772c39d}{Binary\+Node::\+\+Binary\+Node}} (\begin{DoxyParamCaption}\item[{std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$}]{left\+\_\+node}{ = {\ttfamily nullptr}, }\item[{std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$}]{right\+\_\+node}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\Hypertarget{class_mult_node_ae9bd8129fdff4fad0488486a2c211cc4}\index{MultNode@{MultNode}!Calculate@{Calculate}}
+\index{Calculate@{Calculate}!MultNode@{MultNode}}
+\doxysubsubsection{\texorpdfstring{Calculate()}{Calculate()}}
+{\footnotesize\ttfamily \label{class_mult_node_ae9bd8129fdff4fad0488486a2c211cc4} 
+float Mult\+Node::\+\+Calculate (\begin{DoxyParamCaption}\item[{float}]{x}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Calculates the value of the function at a given point. 
+
+
+\begin{DoxyItemize}
+\item First, it recursively calls the Calculate method of its child nodes (if they exist), and then performs its own mathematical operation using those returned values.
+\item 
+\begin{DoxyParams}{Parameters}
+{\em x} & The input value for the variable x. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float The calculated result of the function. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}
+
+Implements \doxymbox{\hyperlink{class_binary_node_acce61eca18830fbdaed191e8fd4aac89}{Binary\+Node}}.
+
+\Hypertarget{class_mult_node_a03e593bf49172e42cc135db73513ea1e}\index{MultNode@{MultNode}!Clone@{Clone}}
+\index{Clone@{Clone}!MultNode@{MultNode}}
+\doxysubsubsection{\texorpdfstring{Clone()}{Clone()}}
+{\footnotesize\ttfamily \label{class_mult_node_a03e593bf49172e42cc135db73513ea1e} 
+std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$ Mult\+Node::\+\+Clone (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Creates a deep copy of the node. 
+
+
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Returns}
+std::\+unique\+\_\+ptr$<$\+Node$>$ A smart pointer to the cloned node. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}
+
+Implements \doxymbox{\hyperlink{class_binary_node_ac689367f1df28654f47bb2a17f921b06}{Binary\+Node}}.
+
+\Hypertarget{class_mult_node_a0502799692b7db1128b61c54102ff378}\index{MultNode@{MultNode}!GetDerivative@{GetDerivative}}
+\index{GetDerivative@{GetDerivative}!MultNode@{MultNode}}
+\doxysubsubsection{\texorpdfstring{GetDerivative()}{GetDerivative()}}
+{\footnotesize\ttfamily \label{class_mult_node_a0502799692b7db1128b61c54102ff378} 
+std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$ Mult\+Node::\+\+Get\+Derivative (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generates the derivative tree for this node. Uses the formula (f \texorpdfstring{$\ast$}{*} g)\textquotesingle{} = f\textquotesingle{} \texorpdfstring{$\ast$}{*} g + f \texorpdfstring{$\ast$}{*} g\textquotesingle{}. 
+
+
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Returns}
+std::\+unique\+\_\+ptr$<$\+Node$>$ A smart pointer to an addition node. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}
+
+Implements \doxymbox{\hyperlink{class_binary_node_a9ebfed50263e894ab34b967143e63ed7}{Binary\+Node}}.
+
+\Hypertarget{class_mult_node_a9fa3ec59cc1f91ff8d7426ee84d3040f}\index{MultNode@{MultNode}!ToString@{ToString}}
+\index{ToString@{ToString}!MultNode@{MultNode}}
+\doxysubsubsection{\texorpdfstring{ToString()}{ToString()}}
+{\footnotesize\ttfamily \label{class_mult_node_a9fa3ec59cc1f91ff8d7426ee84d3040f} 
+std::\+string Mult\+Node::\+\+To\+String (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Converts the tree structure into a string. 
+
+\begin{DoxyReturn}{Returns}
+std::\+string The string representation of the formula. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_binary_node_a15ab642cc5466d9734d3e1715278f9f7}{Binary\+Node}}.
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+Derivative Calculator/\+\+Derivative Calculator/\+\doxymbox{\hyperlink{_formula_tree_8h}{Formula\+Tree.\+h}}\end{DoxyCompactItemize}

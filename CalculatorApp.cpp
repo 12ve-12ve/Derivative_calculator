@@ -118,8 +118,8 @@ void CalculatorApp::SetOfCalcButtons()
 {
     //if (SignAndOperationButton("π"))
     //    AddSign("π");
-    if (SignAndOperationButton("PI"))
-        AddSign("PI");
+    if (SignAndOperationButton("π"))
+        AddSign("π");
     ImGui::SameLine();
     if (SignAndOperationButton("e"))
         AddSign("e");
@@ -132,8 +132,8 @@ void CalculatorApp::SetOfCalcButtons()
     ImGui::SameLine();
     //if (SignAndOperationButton("÷"))
     //    AddSign("÷");
-    if (SignAndOperationButton("/"))
-        AddSign("/");
+    if (SignAndOperationButton("÷"))
+        AddSign("÷");
     if (NumberButton("7"))
         AddSign("7");
     ImGui::SameLine();
@@ -145,8 +145,8 @@ void CalculatorApp::SetOfCalcButtons()
     ImGui::SameLine();
     //if (SignAndOperationButton("×"))
     //    AddSign("×");
-    if (SignAndOperationButton("*"))
-        AddSign("*");
+    if (SignAndOperationButton("×"))
+        AddSign("×");
     if (NumberButton("4"))
         AddSign("4");
     ImGui::SameLine();
@@ -170,7 +170,7 @@ void CalculatorApp::SetOfCalcButtons()
     if (SignAndOperationButton("+"))
         AddSign("+");
     if (NumberButton("Help"))
-        ;
+        show_help_window = true;
     ImGui::SameLine();
     if (NumberButton("0"))
         AddSign("0");
@@ -288,87 +288,48 @@ int CalculatorApp::FormulaInputCallback(ImGuiInputTextCallbackData* data)
     return 0;
 }
 
-void CalculatorApp::Render(void)
+void CalculatorApp::RenderHelpMenu()
 {
-    ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
-    ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize);
-    ImGui::Begin("##calc", NULL, window_flags);
-    ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 10, ImGui::GetCursorPosY() + 10));
+    ImGui::Begin("User Manual & Tips", &show_help_window);
 
-    ImGui::BeginGroup();
-
-    ImGui::SetNextItemWidth(504);
-
-    ImGui::PushFont(NULL, 32);
-    if (input_focus)
-        ImGui::SetKeyboardFocusHere();
-
-    if (ImGui::InputText("##Formula", &formula,
-        ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CallbackAlways,
-        FormulaInputCallback, this))
-    {
-        ParseFormula();
-        input_focus = true;
-    }
-    ImGui::PopFont();
-
-    SetOfCalcButtons();
-    TabOfFunctions(ImGui::GetContentRegionAvail().x);
-
-    ImGui::EndGroup();
-
-    ImGui::SameLine();
-    ImGui::SetCursorPosX(ImGui::GetWindowSize().x - 660);
-    ImGui::BeginGroup();
-    if (ImPlot::BeginPlot("##plot", ImVec2(650, 650)))
-    {
-        if (!pos_reset)
-        {
-            ImPlot::SetupAxisLimits(ImAxis_X1, -10.0, 10.0, ImGuiCond_Once);
-            ImPlot::SetupAxisLimits(ImAxis_Y1, -10.0, 10.0, ImGuiCond_Once);
-        }
-        else
-        {
-            ImPlot::SetupAxisLimits(ImAxis_X1, -10.0, 10.0, ImGuiCond_Always);
-            ImPlot::SetupAxisLimits(ImAxis_Y1, -10.0, 10.0, ImGuiCond_Always);
-            pos_reset = false;
-        }
-
-        ImPlot::SetupAxes("x", "y");
-
-        ImPlotSpec axis_spec;
-        axis_spec.LineWeight = 2.0f;
-        axis_spec.LineColor = ImVec4(0.8f, 0.8f, 0.8f, 1.0f);
-        double zero = 0.0;
-        ImPlot::PlotInfLines("##Y_Axis", &zero, 1, axis_spec);
-        axis_spec.Flags = ImPlotInfLinesFlags_Horizontal;
-        ImPlot::PlotInfLines("##X_Axis", &zero, 1, axis_spec);
-
-        ShowFormulaPlot();
-
-        ImPlot::EndPlot();
-    }
-
-    ImGuiStyle& style = ImGui::GetStyle();
-    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - (ImGui::CalcTextSize("Reset position").x + style.FramePadding.x * 2.0f) - 3);
-    if (ImGui::Button("Reset Position"))
-        pos_reset = true;
-
-    ImGui::PushFont(NULL, 30);
-    ImGui::Text(" f(x)=%s", parsed_formula.c_str(), 2 * BUFFER_SIZE);
-    ImGui::PopFont();
-
-    ImGui::PushFont(NULL, 30);
-    ImGui::Text("f'(x)=%s", derivative_formula.c_str(), 2 * BUFFER_SIZE);
-    ImGui::PopFont();
-
-    ImGui::EndGroup();
+    ImGui::Text("How to use the calculator");
+    ImGui::Separator();
+    ImGui::Text("Calculator Guide:");
+    ImGui::BulletText("Variables: Use 'x' as your independent variable.");
+    ImGui::BulletText("Functions that are supported are in the functions tab.");
+    ImGui::BulletText("Example: type 'sin(pow(x,2)) + 2*x' and press Enter.");
+    ImGui::Separator();
+    ImGui::Text("User Guide:");
+    ImGui::BulletText("Left-click drag within the plot area to pan X and Y axes.");
+    ImGui::Indent();
+    ImGui::BulletText("Left-click drag on axis labels to pan an individual axis.");
+    ImGui::Unindent();
+    ImGui::BulletText("Scroll in the plot area to zoom both X and Y axes.");
+    ImGui::Indent();
+    ImGui::BulletText("Scroll on axis labels to zoom an individual axis.");
+    ImGui::Unindent();
+    ImGui::BulletText("Right-click drag to box select data.");
+    ImGui::Indent();
+    ImGui::BulletText("Hold Alt to expand box selection horizontally.");
+    ImGui::BulletText("Hold Shift to expand box selection vertically.");
+    ImGui::BulletText("Left-click while box selecting to cancel the selection.");
+    ImGui::Unindent();
+    ImGui::BulletText("Double left-click to fit all visible data.");
+    ImGui::Indent();
+    ImGui::BulletText("Double left-click axis labels to fit the individual axis.");
+    ImGui::Unindent();
+    ImGui::BulletText("Right-click open the full plot context menu.");
+    ImGui::Indent();
+    ImGui::BulletText("Right-click axis labels to open an individual axis context menu.");
+    ImGui::Unindent();
+    ImGui::BulletText("Click legend label icons to show/hide plot items.");
 
     ImGui::End();
 }
 
 void CalculatorApp::ParseFormula()
 {
+    parsing_error = false;
     std::vector<Token> tokens;
     std::string formula_part;
     Token new_token;
@@ -387,9 +348,9 @@ void CalculatorApp::ParseFormula()
 
     for (; i < formula.size(); ++i)
     {
-        if (isblank(formula[i]))
+        if (isblank(static_cast<unsigned char>(formula[i])))
             continue;
-        else if (isalnum(formula[i]) || formula[i] == '.')
+        else if (isalnum(static_cast<unsigned char>(formula[i])) || formula[i] == '.')
             formula_part += formula[i];
         else if (OperatorSign(formula[i]))
         {
@@ -401,12 +362,42 @@ void CalculatorApp::ParseFormula()
                     formula_part.clear();
                 }
                 else 
+                {
+                    parsing_error = true;
                     return;
+                }
             }    
             tokens.push_back(CreateOperatorToken(formula[i]));
         }
+        else if (formula.compare(i, 2, u8"π") == 0 || formula.compare(i, 2, u8"×") == 0 || formula.compare(i, 2, u8"÷") == 0)
+        {
+            if (!formula_part.empty())
+            {
+                if (CheckToken(formula_part, new_token))
+                {
+                    tokens.push_back(new_token);
+                    formula_part.clear();
+                }
+                else
+                {
+                    parsing_error = true;
+                    return;
+                }
+            }
+
+            if (formula.compare(i, 2, u8"π") == 0)
+                tokens.push_back(Token(Token::TokenType::CONSTANT, "PI"));
+            else if (formula.compare(i, 2, u8"×") == 0)
+                tokens.push_back(CreateOperatorToken('*'));
+            else if (formula.compare(i, 2, u8"÷") == 0)
+                tokens.push_back(CreateOperatorToken('/'));
+            i += 1;
+        }
         else
+        {
+            parsing_error = true;
             return;
+        }
     }
 
     if (!formula_part.empty())
@@ -417,16 +408,23 @@ void CalculatorApp::ParseFormula()
             formula_part.clear();
         }
         else
+        {
+            parsing_error = true;
             return;
+        }
     }
 
     head_formula = ModifyToRPN(tokens);
+
     if (head_formula != nullptr)
     {
         formula_changed = true;
         parsed_formula = "f(x)=" + formula;
         head_derivative = head_formula->GetDerivative();
+        derivative_formula = "f'(x)=" + head_derivative->ToString();
     }
+    else
+        parsing_error = true;
 }
 
 void CalculatorApp::ShowFormulaPlot()
@@ -504,7 +502,95 @@ void CalculatorApp::ShowFormulaPlot()
         if (head_derivative != nullptr && !x_der_points.empty())
         {
             f_x_spec.LineColor = ImVec4(0.99f, 0.73f, 0.01f, 1.0f);
-            ImPlot::PlotLine("f'(x)", x_der_points.data(), y_der_points.data(), (int)x_der_points.size(), f_x_spec);
+            ImPlot::PlotLine(derivative_formula.c_str(), x_der_points.data(), y_der_points.data(), (int)x_der_points.size(), f_x_spec);
         }
     }
+}
+
+void CalculatorApp::Render(void)
+{
+    ImGui::SetNextWindowPos(ImVec2(0.0f, 0.0f));
+    ImGui::SetNextWindowSize(ImGui::GetIO().DisplaySize);
+    ImGui::Begin("##calc", NULL, window_flags);
+
+    if (show_help_window)
+        RenderHelpMenu();
+
+    ImGui::SetCursorPos(ImVec2(ImGui::GetCursorPosX() + 10, ImGui::GetCursorPosY() + 10));
+
+    ImGui::BeginGroup();
+
+    ImGui::SetNextItemWidth(504);
+
+    ImGui::PushFont(NULL, 32);
+    if (input_focus)
+        ImGui::SetKeyboardFocusHere();
+
+    if (ImGui::InputText("##Formula", &formula,
+        ImGuiInputTextFlags_EnterReturnsTrue | ImGuiInputTextFlags_CallbackAlways,
+        FormulaInputCallback, this))
+    {
+        ParseFormula();
+        input_focus = true;
+    }
+    ImGui::PopFont();
+
+    if (parsing_error)
+        ImGui::TextColored(ImVec4(1.0f, 0.2f, 0.2f, 1.0f), "There is an error in the formula.");
+    else
+        ImGui::Dummy(ImVec2(0.0f, ImGui::GetTextLineHeight()));
+
+    SetOfCalcButtons();
+    TabOfFunctions(ImGui::GetContentRegionAvail().x);
+
+    ImGui::EndGroup();
+
+    ImGui::SameLine();
+    ImGui::SetCursorPosX(ImGui::GetWindowSize().x - 660);
+    ImGui::BeginGroup();
+    if (ImPlot::BeginPlot("##plot", ImVec2(650, 650)))
+    {
+        if (!pos_reset)
+        {
+            ImPlot::SetupAxisLimits(ImAxis_X1, -10.0, 10.0, ImGuiCond_Once);
+            ImPlot::SetupAxisLimits(ImAxis_Y1, -10.0, 10.0, ImGuiCond_Once);
+        }
+        else
+        {
+            ImPlot::SetupAxisLimits(ImAxis_X1, -10.0, 10.0, ImGuiCond_Always);
+            ImPlot::SetupAxisLimits(ImAxis_Y1, -10.0, 10.0, ImGuiCond_Always);
+            pos_reset = false;
+        }
+
+        ImPlot::SetupAxes("x", "y");
+
+        ImPlotSpec axis_spec;
+        axis_spec.LineWeight = 2.0f;
+        axis_spec.LineColor = ImVec4(0.8f, 0.8f, 0.8f, 1.0f);
+        double zero = 0.0;
+        ImPlot::PlotInfLines("##Y_Axis", &zero, 1, axis_spec);
+        axis_spec.Flags = ImPlotInfLinesFlags_Horizontal;
+        ImPlot::PlotInfLines("##X_Axis", &zero, 1, axis_spec);
+
+        ShowFormulaPlot();
+
+        ImPlot::EndPlot();
+    }
+
+    ImGuiStyle& style = ImGui::GetStyle();
+    ImGui::SetCursorPosX(ImGui::GetCursorPosX() + ImGui::GetContentRegionAvail().x - (ImGui::CalcTextSize("Reset position").x + style.FramePadding.x * 2.0f) - 3);
+    if (ImGui::Button("Reset Position"))
+        pos_reset = true;
+
+    ImGui::PushFont(NULL, 30);
+    ImGui::Text("%s", parsed_formula.c_str(), 2 * BUFFER_SIZE);
+    ImGui::PopFont();
+
+    ImGui::PushFont(NULL, 30);
+    ImGui::Text("%s", derivative_formula.c_str(), 2 * BUFFER_SIZE);
+    ImGui::PopFont();
+
+    ImGui::EndGroup();
+
+    ImGui::End();
 }

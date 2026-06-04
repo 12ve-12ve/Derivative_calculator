@@ -1,0 +1,149 @@
+\doxysection{Asinh\+Node Class Reference}
+\hypertarget{class_asinh_node}{}\label{class_asinh_node}\index{AsinhNode@{AsinhNode}}
+
+
+\doxylink{class_node}{Node} representing an inverse hyperbolic sine operation.  
+
+
+
+
+{\ttfamily \+\#include $<$Formula\+Tree.\+h$>$}
+
+Inheritance diagram for Asinh\+Node:\+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_asinh_node}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+float \doxymbox{\hyperlink{class_asinh_node_ad47e375aa6cc4b75f108e2f51bd6e536}{Calculate}} (float x) const override
+\begin{DoxyCompactList}\small\item\em Calculates the value of the function at a given point. \end{DoxyCompactList}\item 
+std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$ \doxymbox{\hyperlink{class_asinh_node_ade50ac961e752412a77e85fdaeb17f12}{Clone}} () const override
+\begin{DoxyCompactList}\small\item\em Creates a deep copy of the node. \end{DoxyCompactList}\item 
+std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$ \doxymbox{\hyperlink{class_asinh_node_ae0ba861da8880ba09467524281cafbc5}{Get\+Derivative}} () const override
+\begin{DoxyCompactList}\small\item\em Generates the derivative tree for this node. \end{DoxyCompactList}\item 
+std::\+string \doxymbox{\hyperlink{class_asinh_node_a67f39688870ce11e520a0dbdfe4b6148}{To\+String}} () const override
+\begin{DoxyCompactList}\small\item\em Converts the tree structure into a string. \end{DoxyCompactList}\item 
+\doxymbox{\hyperlink{class_asinh_node_a2d4e361b9159b84d75bfd846341f1b05}{Unary\+Node}} (std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$ node=nullptr)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_unary_node}{Unary\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{Unary\+Node}} (std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$ node=nullptr)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \doxymbox{\hyperlink{class_node}{Node}}}
+\begin{DoxyCompactItemize}
+\item 
+virtual \doxymbox{\hyperlink{class_node_abce703f211f6a577085b4b8ad68cbb19}{\texorpdfstring{$\sim$}{\string~}\+Node}} ()=default
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \doxymbox{\hyperlink{class_unary_node}{Unary\+Node}}}
+\begin{DoxyCompactItemize}
+\item 
+std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_node}{Node} representing an inverse hyperbolic sine operation. 
+
+\label{class_asinh_node_doc-func-members}
+\Hypertarget{class_asinh_node_doc-func-members}
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_asinh_node_ad47e375aa6cc4b75f108e2f51bd6e536}\index{AsinhNode@{AsinhNode}!Calculate@{Calculate}}
+\index{Calculate@{Calculate}!AsinhNode@{AsinhNode}}
+\doxysubsubsection{\texorpdfstring{Calculate()}{Calculate()}}
+{\footnotesize\ttfamily \label{class_asinh_node_ad47e375aa6cc4b75f108e2f51bd6e536} 
+float Asinh\+Node::\+\+Calculate (\begin{DoxyParamCaption}\item[{float}]{x}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Calculates the value of the function at a given point. 
+
+
+\begin{DoxyItemize}
+\item First, it recursively calls the Calculate method of its child nodes (if they exist), and then performs its own mathematical operation using those returned values.
+\item 
+\begin{DoxyParams}{Parameters}
+{\em x} & The input value for the variable x. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+float The calculated result of the function. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}
+
+Implements \doxymbox{\hyperlink{class_unary_node_a23e0c3f28ac8b86386a697bd29ac294f}{Unary\+Node}}.
+
+\Hypertarget{class_asinh_node_ade50ac961e752412a77e85fdaeb17f12}\index{AsinhNode@{AsinhNode}!Clone@{Clone}}
+\index{Clone@{Clone}!AsinhNode@{AsinhNode}}
+\doxysubsubsection{\texorpdfstring{Clone()}{Clone()}}
+{\footnotesize\ttfamily \label{class_asinh_node_ade50ac961e752412a77e85fdaeb17f12} 
+std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$ Asinh\+Node::\+\+Clone (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Creates a deep copy of the node. 
+
+
+\begin{DoxyItemize}
+\item \begin{DoxyReturn}{Returns}
+std::\+unique\+\_\+ptr$<$\+Node$>$ A smart pointer to the cloned node. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}
+
+Implements \doxymbox{\hyperlink{class_unary_node_a4c2335f7ee3938c9de8ed270f82f6b76}{Unary\+Node}}.
+
+\Hypertarget{class_asinh_node_ae0ba861da8880ba09467524281cafbc5}\index{AsinhNode@{AsinhNode}!GetDerivative@{GetDerivative}}
+\index{GetDerivative@{GetDerivative}!AsinhNode@{AsinhNode}}
+\doxysubsubsection{\texorpdfstring{GetDerivative()}{GetDerivative()}}
+{\footnotesize\ttfamily \label{class_asinh_node_ae0ba861da8880ba09467524281cafbc5} 
+std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$ Asinh\+Node::\+\+Get\+Derivative (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Generates the derivative tree for this node. 
+
+
+\begin{DoxyItemize}
+\item Applies derivation rules to construct a new syntax tree representing the mathematical derivative of the function.
+\item \begin{DoxyReturn}{Returns}
+std::\+unique\+\_\+ptr$<$\+Node$>$ A smart pointer to the root of the derivative tree. 
+\end{DoxyReturn}
+
+\end{DoxyItemize}
+
+Implements \doxymbox{\hyperlink{class_unary_node_aa1a966a9dde5037177bd7f6f6a939b17}{Unary\+Node}}.
+
+\Hypertarget{class_asinh_node_a67f39688870ce11e520a0dbdfe4b6148}\index{AsinhNode@{AsinhNode}!ToString@{ToString}}
+\index{ToString@{ToString}!AsinhNode@{AsinhNode}}
+\doxysubsubsection{\texorpdfstring{ToString()}{ToString()}}
+{\footnotesize\ttfamily \label{class_asinh_node_a67f39688870ce11e520a0dbdfe4b6148} 
+std::\+string Asinh\+Node::\+\+To\+String (\begin{DoxyParamCaption}{}{}\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Converts the tree structure into a string. 
+
+\begin{DoxyReturn}{Returns}
+std::\+string The string representation of the formula. 
+\end{DoxyReturn}
+
+
+Implements \doxymbox{\hyperlink{class_unary_node_a9a125ebd70bfb2f66fe53619bc2d8c7d}{Unary\+Node}}.
+
+\Hypertarget{class_asinh_node_a2d4e361b9159b84d75bfd846341f1b05}\index{AsinhNode@{AsinhNode}!UnaryNode@{UnaryNode}}
+\index{UnaryNode@{UnaryNode}!AsinhNode@{AsinhNode}}
+\doxysubsubsection{\texorpdfstring{UnaryNode()}{UnaryNode()}}
+{\footnotesize\ttfamily \label{class_asinh_node_a2d4e361b9159b84d75bfd846341f1b05} 
+\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{Unary\+Node::\+\+Unary\+Node}} (\begin{DoxyParamCaption}\item[{std::\+unique\+\_\+ptr$<$ \doxymbox{\hyperlink{class_node}{Node}} $>$}]{node}{ = {\ttfamily nullptr}}\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+The documentation for this class was generated from the following file:\+\begin{DoxyCompactItemize}
+\item 
+Derivative Calculator/\+\+Derivative Calculator/\+\doxymbox{\hyperlink{_formula_tree_8h}{Formula\+Tree.\+h}}\end{DoxyCompactItemize}

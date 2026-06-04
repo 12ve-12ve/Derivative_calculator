@@ -1,0 +1,76 @@
+\doxysection{Calculator\+App.\+h}
+\hypertarget{_calculator_app_8h_source}{}\label{_calculator_app_8h_source}\index{Derivative Calculator/Derivative Calculator/CalculatorApp.h@{Derivative Calculator/Derivative Calculator/CalculatorApp.h}}
+\doxymbox{\hyperlink{_calculator_app_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CalculatorApp\_h}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CalculatorApp\_h}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <vector>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}External/ImGui/imgui.h"{}}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ "{}External/ImGui/implot.h"{}}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ "{}External/ImGui/imgui\_stdlib.h"{}}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ "{}\doxymbox{\hyperlink{_formula_tree_8h}{FormulaTree.h}}"{}}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00016\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_calculator_app_a147c2e3ce4ebed23e903bc1540c5903c}{CalculatorApp}}}
+\DoxyCodeLine{00017\ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{comment}{//Constants}}
+\DoxyCodeLine{00019\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_calculator_app_afa31835f259a2d427c5a00a4d99b44d9}{STEPS}}\ =\ 10001;\ \ \ \ \ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keyword}{constexpr}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_calculator_app_aec65f222614b74aeaff31c8ad2f04b61}{BUFFER\_SIZE}}\ =\ 64;\ \ }
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{comment}{//Input\ field\ flags\ and\ parameters}}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_calculator_app_a4ca5e09f650d76f19a340f5b5444959c}{input\_focus}}\ =\ \textcolor{keyword}{true};\ \ \ \ }
+\DoxyCodeLine{00024\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_calculator_app_ae5cb672932dcfd90ec5579bf709f1426}{formula\_changed}}\ =\ \textcolor{keyword}{false};\ \ \ }
+\DoxyCodeLine{00025\ \ \ \ \ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_calculator_app_ae16422a4adb781971f919eaf631c63c3}{last\_cursor\_position}}\ =\ 0;\ \ \ }
+\DoxyCodeLine{00026\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_calculator_app_aa0e9ca9a2f8ac680f7044e6133b4cbd0}{show\_help\_window}}\ =\ \textcolor{keyword}{false};\ \ }
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_calculator_app_a3c55919cebef90a8e558e3bbf842fa7d}{parsing\_error}}\ =\ \textcolor{keyword}{false};\ \ \ \ \ }
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{comment}{//Plot\ data}}
+\DoxyCodeLine{00030\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_calculator_app_a90c8a3ed3544d12fa27ace74bb1b1b1f}{pos\_reset}}\ =\ \textcolor{keyword}{false};\ \ \ \ \ }
+\DoxyCodeLine{00031\ \ \ \ \ std::vector<float>\ \doxymbox{\hyperlink{class_calculator_app_a851c079dc7160428664fdc9685b90732}{x\_points}};\ \ \ \ }
+\DoxyCodeLine{00032\ \ \ \ \ std::vector<float>\ \doxymbox{\hyperlink{class_calculator_app_ae8889a234185911669e84566840baeca}{y\_points}};\ \ \ \ }
+\DoxyCodeLine{00033\ \ \ \ \ std::vector<float>\ \doxymbox{\hyperlink{class_calculator_app_a97967c9161acca30108165ff6fbbeaee}{x\_der\_points}};\ \ \ \ }
+\DoxyCodeLine{00034\ \ \ \ \ std::vector<float>\ \doxymbox{\hyperlink{class_calculator_app_abe2fc44eb9fd856a5a50fcc9094aa108}{y\_der\_points}};\ \ \ \ }
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \ \ \ \ \textcolor{comment}{//Text\ buffers}}
+\DoxyCodeLine{00037\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_calculator_app_a561fff5f9114b88b0d19d72c821834b6}{formula}}\ =\ \textcolor{stringliteral}{"{}"{}};\ \ \ }
+\DoxyCodeLine{00038\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_calculator_app_a4b0f9af597a8cedff90683b39b3733ae}{parsed\_formula}}\ =\ \textcolor{stringliteral}{"{}"{}};\ \ \ \ }
+\DoxyCodeLine{00039\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_calculator_app_ad373ae17336cf37587ddd6e11d381ded}{derivative\_formula}}\ =\ \textcolor{stringliteral}{"{}"{}};\ \ \ \ }
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \ \ \ \ \textcolor{comment}{//Abstract\ Syntax\ Trees}}
+\DoxyCodeLine{00042\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_calculator_app_a62f0ae6ef674f16f76ad8ac5486d7e37}{head\_formula}}\ =\ \textcolor{keyword}{nullptr};\ \ \ }
+\DoxyCodeLine{00043\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_calculator_app_aa21f6de2479ee3c7b24feac296a26c00}{head\_derivative}}\ =\ \textcolor{keyword}{nullptr};\ \ \ \ }
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{comment}{//GUI\ and\ Rendering\ State}}
+\DoxyCodeLine{00046\ \ \ \ \ ImGuiWindowFlags\ \doxymbox{\hyperlink{class_calculator_app_a4a6e9216ea17a5950131ca798cf61e0a}{window\_flags}};\ \ }
+\DoxyCodeLine{00047\ \ \ \ \ ImPlotRect\ \doxymbox{\hyperlink{class_calculator_app_aca03cdd650729fa02ba1ba2c296a56f5}{prev\_limits}};\ \ \ \ \ }
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00055\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_calculator_app_a6c63b2b3562992ca309465a5ceb55410}{AddSign}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ sign);}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_calculator_app_a848dc9d24ba5909662e1e3e8b88d0e5f}{NumberButton}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ sign);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00073\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_calculator_app_a4a75fd3af75bfe12d9d30af34a3fba33}{SignAndOperationButton}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ sign);}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{bool}\ \doxymbox{\hyperlink{class_calculator_app_ae552896f4a003f280e708e9407ff90f3}{FunctionButton}}(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}*\ sign);}
+\DoxyCodeLine{00083\ \ \ \ \ }
+\DoxyCodeLine{00087\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_calculator_app_a87824815facf50b82b957f6c589e7c2f}{SetOfCalcButtons}}();}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00093\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_calculator_app_ae85489c53e9ac87b52da7f9c357f01ea}{TabOfFunctions}}(\textcolor{keywordtype}{float}\ width);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{int}\ \doxymbox{\hyperlink{class_calculator_app_a5982eabd786abffd875e417c779d24e9}{FormulaInputCallback}}(ImGuiInputTextCallbackData*\ data);}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_calculator_app_afabef6d0e4edefeeb42c8128bdeb100d}{RenderHelpMenu}}();}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_calculator_app_a17762b9ff5f5618994b942e925af71fd}{ParseFormula}}();}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_calculator_app_af65f760e5605b2598289d0b3de5a0efd}{ShowFormulaPlot}}();}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00133\ \ \ \ \ \doxymbox{\hyperlink{class_calculator_app_a147c2e3ce4ebed23e903bc1540c5903c}{CalculatorApp}}();}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordtype}{void}\ \doxymbox{\hyperlink{class_calculator_app_a68065717c122ed7f2bbb581d0c00aad6}{Render}}();}
+\DoxyCodeLine{00139\ \};}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !CalculatorApp\_h}}
+
+\end{DoxyCode}

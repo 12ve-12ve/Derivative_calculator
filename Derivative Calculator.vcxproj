@@ -38,7 +38,6 @@
   <ItemGroup>
     <ClCompile Include="CalculatorApp.cpp" />
     <ClCompile Include="External\ImGui\imgui.cpp" />
-    <ClCompile Include="External\ImGui\imgui_demo.cpp" />
     <ClCompile Include="External\ImGui\imgui_draw.cpp" />
     <ClCompile Include="External\ImGui\imgui_impl_glfw.cpp" />
     <ClCompile Include="External\ImGui\imgui_impl_opengl3.cpp" />
@@ -46,7 +45,6 @@
     <ClCompile Include="External\ImGui\imgui_tables.cpp" />
     <ClCompile Include="External\ImGui\imgui_widgets.cpp" />
     <ClCompile Include="External\ImGui\implot.cpp" />
-    <ClCompile Include="External\ImGui\implot_demo.cpp" />
     <ClCompile Include="External\ImGui\implot_items.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Parser.cpp" />

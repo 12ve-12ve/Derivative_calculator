@@ -1,0 +1,358 @@
+\doxysection{Formula\+Tree.\+h}
+\hypertarget{_formula_tree_8h_source}{}\label{_formula_tree_8h_source}\index{Derivative Calculator/Derivative Calculator/FormulaTree.h@{Derivative Calculator/Derivative Calculator/FormulaTree.h}}
+\doxymbox{\hyperlink{_formula_tree_8h}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ FormulaTree\_h}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ FormulaTree\_h}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <sstream>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <memory>}}
+\DoxyCodeLine{00007\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_node}{Node}}}
+\DoxyCodeLine{00014\ \{}
+\DoxyCodeLine{00015\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_node_a8c363fb102cb8a79e691bf6be9cc9833}{Calculate}}(\textcolor{keywordtype}{float}\ x)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{virtual}\ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_node_a11ab25b9329b40240c6933cffea47fde}{Clone}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keyword}{virtual}\ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_node_a41fce39f3daf56821001f0d33b868c05}{GetDerivative}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{virtual}\ std::string\ \doxymbox{\hyperlink{class_node_a9593e66c5b6df697df6cac3a1d554a6d}{ToString}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \ \ \ \ \textcolor{keyword}{virtual}\ \doxymbox{\hyperlink{class_node_abce703f211f6a577085b4b8ad68cbb19}{\string~Node}}()\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00046\ \};}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00051\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_const_node_a54110495ebe2f1ae09146e6908adc6b2}{ConstNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_node}{Node}}}
+\DoxyCodeLine{00052\ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_const_node_a0d7137345f79b5b73747c0dac255aae7}{constant}};\ }
+\DoxyCodeLine{00054\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00055\ \ \ \ \ \doxymbox{\hyperlink{class_const_node_a54110495ebe2f1ae09146e6908adc6b2}{ConstNode}}(\textcolor{keywordtype}{float}\ val)\ :\ \doxymbox{\hyperlink{class_const_node_a0d7137345f79b5b73747c0dac255aae7}{constant}}(val)\ \{\};}
+\DoxyCodeLine{00056\ \ \ \ \ \doxymbox{\hyperlink{class_const_node_a671a91a838980fe4acdc267cebbded91}{ConstNode}}(std::string\ str)\ \{}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (str\ ==\ \textcolor{stringliteral}{"{}PI"{}})\ \{}
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_const_node_a0d7137345f79b5b73747c0dac255aae7}{constant}}\ =\ 3.14159265f;}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00060\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (str\ ==\ \textcolor{stringliteral}{"{}e"{}})\ \{}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \ \ \ \ \doxymbox{\hyperlink{class_const_node_a0d7137345f79b5b73747c0dac255aae7}{constant}}\ =\ 2.718281828f;}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \{}
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \ \ \ \ \ \ std::istringstream\ input(str);}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \ \ \ \ input\ >>\ \doxymbox{\hyperlink{class_const_node_a0d7137345f79b5b73747c0dac255aae7}{constant}};}
+\DoxyCodeLine{00066\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00067\ \ \ \ \ \}}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_const_node_aaabf8a23cac951fa74c86332cd97ce1c}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_const_node_a0d7137345f79b5b73747c0dac255aae7}{constant}};\ \}}
+\DoxyCodeLine{00069\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_const_node_a563071b31f59d5c5457f61b81b937e04}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<ConstNode>(this-\/>constant);\ \}}
+\DoxyCodeLine{00070\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_const_node_a6ab0775aec205875c1c8debf206d3a3e}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<ConstNode>(0.0f);\ \}}
+\DoxyCodeLine{00071\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_const_node_af8fa2d5832703768a08152f99d996ea3}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{class_const_node_a0d7137345f79b5b73747c0dac255aae7}{constant}}\ ==\ 3.14159265f)}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}π"{}};}
+\DoxyCodeLine{00074\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\doxymbox{\hyperlink{class_const_node_a0d7137345f79b5b73747c0dac255aae7}{constant}}\ ==\ 2.718281828f)}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}e"{}};}
+\DoxyCodeLine{00076\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \ \ \ \ \ \ \ \ std::ostringstream\ oss;}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \ \ \ \ oss\ <<\ \doxymbox{\hyperlink{class_const_node_a0d7137345f79b5b73747c0dac255aae7}{constant}};}
+\DoxyCodeLine{00080\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ oss.str();}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00082\ \ \ \ \ \}}
+\DoxyCodeLine{00083\ \};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00088\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_variable_node}{VariableNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_node}{Node}}}
+\DoxyCodeLine{00089\ \{}
+\DoxyCodeLine{00090\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_variable_node_a5b1741a2fdc0687d19cb073f8b116caa}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ x;\ \}}
+\DoxyCodeLine{00092\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_variable_node_aa36f796312cc4fee8ac7036b4a8728df}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<VariableNode>();\ \}}
+\DoxyCodeLine{00093\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_variable_node_a58c67b1db7a6021342584f90c7a7fa9a}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<ConstNode>(1.0f);\ \}}
+\DoxyCodeLine{00094\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_variable_node_ab1ddc7d6c7c77445eb19ddd8194c5533}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}x"{}};\ \}}
+\DoxyCodeLine{00095\ \};}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00100\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_binary_node_a2f92a401ec1f07ef15b2fbaa9772c39d}{BinaryNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_node}{Node}}}
+\DoxyCodeLine{00101\ \{}
+\DoxyCodeLine{00102\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00103\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}};}
+\DoxyCodeLine{00104\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}};}
+\DoxyCodeLine{00105\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00106\ \ \ \ \ \doxymbox{\hyperlink{class_binary_node_a2f92a401ec1f07ef15b2fbaa9772c39d}{BinaryNode}}(std::unique\_ptr<Node>\ left\_node\ =\ \textcolor{keyword}{nullptr},\ std::unique\_ptr<Node>\ right\_node\ =\ \textcolor{keyword}{nullptr})\ :\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}(std::move(left\_node)),\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}(std::move(right\_node))\ \{\};}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_binary_node_acce61eca18830fbdaed191e8fd4aac89}{Calculate}}(\textcolor{keywordtype}{float}\ x)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keyword}{virtual}\ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_binary_node_ac689367f1df28654f47bb2a17f921b06}{Clone}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keyword}{virtual}\ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_binary_node_a9ebfed50263e894ab34b967143e63ed7}{GetDerivative}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keyword}{virtual}\ std::string\ \doxymbox{\hyperlink{class_binary_node_a15ab642cc5466d9734d3e1715278f9f7}{ToString}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00111\ \};}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00116\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_add_node}{AddNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_add_node_a2f92a401ec1f07ef15b2fbaa9772c39d}{BinaryNode}}}
+\DoxyCodeLine{00117\ \{}
+\DoxyCodeLine{00118\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00119\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_binary_node_a2f92a401ec1f07ef15b2fbaa9772c39d}{BinaryNode::BinaryNode}};}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_add_node_aa14807fb012078bfed80e4fa9d438152}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Calculate(x)\ +\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Calculate(x);\ \}}
+\DoxyCodeLine{00121\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_add_node_a26ea34e61e07417bc60a4c93e1507ac6}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<AddNode>(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Clone(),\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00122\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_add_node_a20a261b5e863c8c3f6209c0494915c95}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<AddNode>(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>GetDerivative(),\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>GetDerivative());\ \}}
+\DoxyCodeLine{00123\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_add_node_a96d4cebb2ca68d2886081b760909556b}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ }
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{dynamic\_cast<}\doxymbox{\hyperlink{class_const_node}{ConstNode}}*\textcolor{keyword}{>}(\doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}.get())\ !=\ \textcolor{keyword}{nullptr}\ \&\&\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Calculate(0.0f)\ ==\ 0.0f)}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>ToString();}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{dynamic\_cast<}\doxymbox{\hyperlink{class_const_node}{ConstNode}}*\textcolor{keyword}{>}(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}.get())\ !=\ \textcolor{keyword}{nullptr}\ \&\&\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Calculate(0.0f)\ ==\ 0.0f)}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>ToString();}
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}("{}}\ +\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{}+"{}}\ +\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00129\ \ \ \ \ \}}
+\DoxyCodeLine{00130\ \};}
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00135\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_sub_node}{SubNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_sub_node_a2f92a401ec1f07ef15b2fbaa9772c39d}{BinaryNode}}}
+\DoxyCodeLine{00136\ \{}
+\DoxyCodeLine{00137\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_binary_node_a2f92a401ec1f07ef15b2fbaa9772c39d}{BinaryNode::BinaryNode}};}
+\DoxyCodeLine{00139\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_sub_node_a0c4ce79d7f770f81507b4cfc11134951}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Calculate(x)\ -\/\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Calculate(x);\ \}}
+\DoxyCodeLine{00140\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_sub_node_a7c7afc383ac2294154f9950bfff2002c}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<SubNode>(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Clone(),\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00141\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_sub_node_a60dbf334c8dca43f4a3e11f16e391433}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<SubNode>(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>GetDerivative(),\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>GetDerivative());\ \}}
+\DoxyCodeLine{00142\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_sub_node_ac62784c7e8df14a7525e6948b0137ed5}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{dynamic\_cast<}\doxymbox{\hyperlink{class_const_node}{ConstNode}}*\textcolor{keyword}{>}(\doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}.get())\ !=\ \textcolor{keyword}{nullptr}\ \&\&\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Calculate(0.0f)\ ==\ 0.0f)}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>ToString();}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{dynamic\_cast<}\doxymbox{\hyperlink{class_const_node}{ConstNode}}*\textcolor{keyword}{>}(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}.get())\ !=\ \textcolor{keyword}{nullptr}\ \&\&\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Calculate(0.0f)\ ==\ 0.0f)}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>ToString();}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}("{}}\ +\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{}-\/"{}}\ +\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};}
+\DoxyCodeLine{00148\ \ \ \ \ \}}
+\DoxyCodeLine{00149\ \};}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00154\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_mult_node}{MultNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_mult_node_a2f92a401ec1f07ef15b2fbaa9772c39d}{BinaryNode}}}
+\DoxyCodeLine{00155\ \{}
+\DoxyCodeLine{00156\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00157\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_binary_node_a2f92a401ec1f07ef15b2fbaa9772c39d}{BinaryNode::BinaryNode}};}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_mult_node_ae9bd8129fdff4fad0488486a2c211cc4}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Calculate(x)\ *\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Calculate(x);\ \}}
+\DoxyCodeLine{00159\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_mult_node_a03e593bf49172e42cc135db73513ea1e}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<MultNode>(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Clone(),\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00166\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_mult_node_a0502799692b7db1128b61c54102ff378}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<AddNode>(std::make\_unique<MultNode>(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>GetDerivative(),\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Clone()),\ std::make\_unique<MultNode>(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Clone(),\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>GetDerivative()));\ \}}
+\DoxyCodeLine{00167\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_mult_node_a9fa3ec59cc1f91ff8d7426ee84d3040f}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ }
+\DoxyCodeLine{00168\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{dynamic\_cast<}\doxymbox{\hyperlink{class_const_node}{ConstNode}}*\textcolor{keyword}{>}(\doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}.get())\ !=\ \textcolor{keyword}{nullptr}\ \&\&\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Calculate(0.0f)\ ==\ 1.0f)}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>ToString();}
+\DoxyCodeLine{00170\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{dynamic\_cast<}\doxymbox{\hyperlink{class_const_node}{ConstNode}}*\textcolor{keyword}{>}(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}.get())\ !=\ \textcolor{keyword}{nullptr}\ \&\&\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Calculate(0.0f)\ ==\ 1.0f)}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>ToString();}
+\DoxyCodeLine{00172\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{dynamic\_cast<}\doxymbox{\hyperlink{class_const_node}{ConstNode}}*\textcolor{keyword}{>}(\doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}.get())\ !=\ \textcolor{keyword}{nullptr}\ \&\&\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Calculate(0.0f)\ ==\ 0.0f)}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}0"{}};}
+\DoxyCodeLine{00174\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{dynamic\_cast<}\doxymbox{\hyperlink{class_const_node}{ConstNode}}*\textcolor{keyword}{>}(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}.get())\ !=\ \textcolor{keyword}{nullptr}\ \&\&\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Calculate(0.0f)\ ==\ 0.0f)}
+\DoxyCodeLine{00175\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}0"{}};}
+\DoxyCodeLine{00176\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}("{}}\ +\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{}×"{}}\ +\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ }
+\DoxyCodeLine{00177\ \ \ \ \ \}}
+\DoxyCodeLine{00178\ \};}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00183\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_div_node}{DivNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_div_node_a2f92a401ec1f07ef15b2fbaa9772c39d}{BinaryNode}}}
+\DoxyCodeLine{00184\ \{}
+\DoxyCodeLine{00185\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00186\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_binary_node_a2f92a401ec1f07ef15b2fbaa9772c39d}{BinaryNode::BinaryNode}};}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00194\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_div_node_a0b89aa6769496aa6b6dab2dbd0ab726c}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override}}
+\DoxyCodeLine{00195\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00196\ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{float}\ denominator\ =\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Calculate(x);}
+\DoxyCodeLine{00197\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (denominator\ ==\ 0.0f)}
+\DoxyCodeLine{00198\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NAN;}
+\DoxyCodeLine{00199\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Calculate(x)\ /\ denominator;}
+\DoxyCodeLine{00200\ \ \ \ \ \}}
+\DoxyCodeLine{00201\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_div_node_adaf2726d7fc4437de4e41d332afc6518}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<DivNode>(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Clone(),\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00202\ }
+\DoxyCodeLine{00208\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_div_node_a057bb2e32a6674caad00f5d6dc00d9c0}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<DivNode>(std::make\_unique<SubNode>(std::make\_unique<MultNode>(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>GetDerivative(),\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Clone()),\ std::make\_unique<MultNode>(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Clone(),\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>GetDerivative())),\ std::make\_unique<MultNode>(\doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Clone(),\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Clone()));\ \}}
+\DoxyCodeLine{00209\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_div_node_a0086ee1e043b3340c3de9530884fcf82}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ }
+\DoxyCodeLine{00210\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{dynamic\_cast<}\doxymbox{\hyperlink{class_const_node}{ConstNode}}*\textcolor{keyword}{>}(\doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}.get())\ !=\ \textcolor{keyword}{nullptr}\ \&\&\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Calculate(0.0f)\ ==\ 1.0f)}
+\DoxyCodeLine{00211\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>ToString();}
+\DoxyCodeLine{00212\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{else}\ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{dynamic\_cast<}\doxymbox{\hyperlink{class_const_node}{ConstNode}}*\textcolor{keyword}{>}(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}.get())\ !=\ \textcolor{keyword}{nullptr}\ \&\&\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Calculate(0.0f)\ ==\ 0.0f)}
+\DoxyCodeLine{00213\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>ToString();}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}("{}}\ +\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{}÷"{}}\ +\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ }
+\DoxyCodeLine{00215\ \ \ \ \ \}}
+\DoxyCodeLine{00216\ \};}
+\DoxyCodeLine{00217\ }
+\DoxyCodeLine{00221\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_node}{Node}}}
+\DoxyCodeLine{00222\ \{}
+\DoxyCodeLine{00223\ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00224\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}};}
+\DoxyCodeLine{00225\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00226\ \ \ \ \ \doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode}}(std::unique\_ptr<Node>\ node\ =\ \textcolor{keyword}{nullptr})\ :\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}(std::move(node))\ \{\};}
+\DoxyCodeLine{00227\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_unary_node_a23e0c3f28ac8b86386a697bd29ac294f}{Calculate}}(\textcolor{keywordtype}{float}\ x)\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00228\ \ \ \ \ \textcolor{keyword}{virtual}\ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_unary_node_a4c2335f7ee3938c9de8ed270f82f6b76}{Clone}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00229\ \ \ \ \ \textcolor{keyword}{virtual}\ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_unary_node_aa1a966a9dde5037177bd7f6f6a939b17}{GetDerivative}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00230\ \ \ \ \ \textcolor{keyword}{virtual}\ std::string\ \doxymbox{\hyperlink{class_unary_node_a9a125ebd70bfb2f66fe53619bc2d8c7d}{ToString}}()\ \textcolor{keyword}{const}\ =\ 0;}
+\DoxyCodeLine{00231\ \};}
+\DoxyCodeLine{00232\ }
+\DoxyCodeLine{00236\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_sqrt_node}{SqrtNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_sqrt_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode}}}
+\DoxyCodeLine{00237\ \{}
+\DoxyCodeLine{00238\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00239\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode::UnaryNode}};}
+\DoxyCodeLine{00240\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_sqrt_node_a4ee5372c37729491f21636f9656e85c7}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ sqrt(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Calculate(x));\ \}}
+\DoxyCodeLine{00241\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_sqrt_node_acc971756fddf2d0b92dfed96d22b5abc}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<SqrtNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00242\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_sqrt_node_ac9eba9285bb76fa236f9da5bff331b7b}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<DivNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>GetDerivative(),\ std::make\_unique<MultNode>(std::make\_unique<ConstNode>(2.0f),\ this-\/>Clone()));\ \}}
+\DoxyCodeLine{00243\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_sqrt_node_a9f9215218ef029ae7b48430e70dc0a59}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}sqrt("{}}\ +\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ \}}
+\DoxyCodeLine{00244\ \};}
+\DoxyCodeLine{00245\ }
+\DoxyCodeLine{00249\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_ln_node}{LnNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_ln_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode}}}
+\DoxyCodeLine{00250\ \{}
+\DoxyCodeLine{00251\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00252\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode::UnaryNode}};}
+\DoxyCodeLine{00253\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_ln_node_a47c562c8e7168286bf0a86d320ce6054}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ log(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Calculate(x));\ \}}
+\DoxyCodeLine{00254\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_ln_node_ae7968c781172e95f5f993b05d1810668}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<LnNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00255\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_ln_node_a7db5cfefbd04de9261a350aada153858}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<DivNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>GetDerivative(),\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00256\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_ln_node_aedb9cff864023688f1db14090d634b23}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}ln("{}}\ +\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ \}}
+\DoxyCodeLine{00257\ \};}
+\DoxyCodeLine{00258\ }
+\DoxyCodeLine{00259\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_cos_node}{CosNode}};}
+\DoxyCodeLine{00260\ }
+\DoxyCodeLine{00264\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_sin_node}{SinNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_sin_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode}}}
+\DoxyCodeLine{00265\ \{}
+\DoxyCodeLine{00266\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00267\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode::UnaryNode}};}
+\DoxyCodeLine{00268\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_sin_node_a3bfb5bb6f6844e89bd5b11b326df2f5f}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ sin(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Calculate(x));\ \}}
+\DoxyCodeLine{00269\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_sin_node_a17b001c9729a473fe8949df69842da02}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<SinNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00270\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_sin_node_a802ca8e999611928ffb7bada9a78ed92}{GetDerivative}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00271\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_sin_node_a4003240b7b77dbcaf8865e3c937b3ad4}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}sin("{}}\ +\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ \}}
+\DoxyCodeLine{00272\ \};}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00277\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_cos_node}{CosNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_cos_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode}}}
+\DoxyCodeLine{00278\ \{}
+\DoxyCodeLine{00279\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00280\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode::UnaryNode}};}
+\DoxyCodeLine{00281\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_cos_node_a338ab29aad7de12a59f8f61afa92a11b}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ cos(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Calculate(x));\ \}}
+\DoxyCodeLine{00282\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_cos_node_a4874c7701e75bcda9d4c27dd7d864f42}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<CosNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00283\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_cos_node_ac3a882ef39d8c57cb541ade77bbeac46}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<MultNode>(std::make\_unique<SubNode>(std::make\_unique<ConstNode>(0.0f),\ std::make\_unique<SinNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone())),\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>GetDerivative());\ \}}
+\DoxyCodeLine{00284\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_cos_node_af0f3ecf330a36dedc8fc557ce7442f1b}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}cos("{}}\ +\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ \}}
+\DoxyCodeLine{00285\ \};}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \textcolor{keyword}{inline}\ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_sin_node_a802ca8e999611928ffb7bada9a78ed92}{SinNode::GetDerivative}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<MultNode>(std::make\_unique<CosNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone()),\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>GetDerivative());\ \}}
+\DoxyCodeLine{00288\ }
+\DoxyCodeLine{00292\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_tan_node}{TanNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_tan_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode}}}
+\DoxyCodeLine{00293\ \{}
+\DoxyCodeLine{00294\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00295\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode::UnaryNode}};}
+\DoxyCodeLine{00296\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_tan_node_aa3d12a24c6b3d6dc41a6e06d83d6ffe5}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ tan(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Calculate(x));\ \}}
+\DoxyCodeLine{00297\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_tan_node_a477cde5c2327956ac3fd33b4439ff254}{Clone}}()\textcolor{keyword}{\ const\ override}\{\ \textcolor{keywordflow}{return}\ std::make\_unique<TanNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00298\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_tan_node_a3c0bf53922575ecf818bf4bb314c2cdf}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<DivNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>GetDerivative(),\ std::make\_unique<MultNode>(std::make\_unique<CosNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone()),\ std::make\_unique<CosNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone())));\ \}}
+\DoxyCodeLine{00299\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_tan_node_a23dcffe2f60911101b70ea4c5baf6a0b}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}tan("{}}\ +\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ \}}
+\DoxyCodeLine{00300\ \};}
+\DoxyCodeLine{00301\ }
+\DoxyCodeLine{00305\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_asin_node}{AsinNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_asin_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode}}}
+\DoxyCodeLine{00306\ \{}
+\DoxyCodeLine{00307\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00308\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode::UnaryNode}};}
+\DoxyCodeLine{00309\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_asin_node_a90cc0bbf72461b0ca17c3e051aab97e2}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ asin(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Calculate(x));\ \}}
+\DoxyCodeLine{00310\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_asin_node_aad3a6546cc6513c58167cd742b42e90b}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<AsinNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00311\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_asin_node_a6ee72b9b8f784ece225466398b0702ee}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<DivNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>GetDerivative(),\ std::make\_unique<SqrtNode>(std::make\_unique<SubNode>(std::make\_unique<ConstNode>(1.0f),\ std::make\_unique<MultNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone(),\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone()))));\ \}}
+\DoxyCodeLine{00312\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_asin_node_a3694bcd1ab9db34d7073f6bcba3d1b0a}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}arcsin("{}}\ +\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ \}}
+\DoxyCodeLine{00313\ \};}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00318\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_acos_node}{AcosNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_acos_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode}}}
+\DoxyCodeLine{00319\ \{}
+\DoxyCodeLine{00320\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00321\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode::UnaryNode}};}
+\DoxyCodeLine{00322\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_acos_node_a5e656f56e784a22ec4742c9aeca2c25e}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ acos(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Calculate(x));\ \}}
+\DoxyCodeLine{00323\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_acos_node_a6694b9bb81c965fc3c7a60a8d9496c92}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<AcosNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00324\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_acos_node_acb19881134325c2f06ef1f367ed794e9}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<SubNode>(std::make\_unique<ConstNode>(0.0f),\ std::make\_unique<DivNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>GetDerivative(),\ std::make\_unique<SqrtNode>(std::make\_unique<SubNode>(std::make\_unique<ConstNode>(1.0f),\ std::make\_unique<MultNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone(),\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone())))));\ \}}
+\DoxyCodeLine{00325\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_acos_node_a0b1afa58e9043ead679f27f314d1a239}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}arccos("{}}\ +\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ \}}
+\DoxyCodeLine{00326\ \};}
+\DoxyCodeLine{00327\ }
+\DoxyCodeLine{00331\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_atan_node}{AtanNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_atan_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode}}}
+\DoxyCodeLine{00332\ \{}
+\DoxyCodeLine{00333\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00334\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode::UnaryNode}};}
+\DoxyCodeLine{00335\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_atan_node_af187b3cbd736805e3c1ab18aaa1b18a7}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ atan(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Calculate(x));\ \}}
+\DoxyCodeLine{00336\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_atan_node_a208ccaa41b8ed14390bd2fb53643125a}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<AtanNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00337\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_atan_node_a2c2b14d4d88daac152c95d52fdebc6f1}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<DivNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>GetDerivative(),\ std::make\_unique<AddNode>(std::make\_unique<ConstNode>(1.0f),\ std::make\_unique<MultNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone(),\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone())));\ \}}
+\DoxyCodeLine{00338\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_atan_node_a2ea7196051800fb403f5624150be0acd}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}arctan("{}}\ +\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ \}}
+\DoxyCodeLine{00339\ \};}
+\DoxyCodeLine{00340\ }
+\DoxyCodeLine{00341\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_cosh_node}{CoshNode}};}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00346\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_sinh_node}{SinhNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_sinh_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode}}}
+\DoxyCodeLine{00347\ \{}
+\DoxyCodeLine{00348\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00349\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode::UnaryNode}};}
+\DoxyCodeLine{00350\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_sinh_node_a237a21e42e016aeda007f5f6ab51cdf2}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ sinh(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Calculate(x));\ \}}
+\DoxyCodeLine{00351\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_sinh_node_aa0b23661098b386aa9e9275a18d7e5c6}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<SinhNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00352\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_sinh_node_a5520ae2a262a110317d1d7b8a0a6d6eb}{GetDerivative}}()\ \textcolor{keyword}{const\ override};}
+\DoxyCodeLine{00353\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_sinh_node_a11d73363dbbac95c3d77a0362ea33068}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}sinh("{}}\ +\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ \}}
+\DoxyCodeLine{00354\ \};}
+\DoxyCodeLine{00355\ }
+\DoxyCodeLine{00359\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_cosh_node}{CoshNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_cosh_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode}}}
+\DoxyCodeLine{00360\ \{}
+\DoxyCodeLine{00361\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00362\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode::UnaryNode}};}
+\DoxyCodeLine{00363\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_cosh_node_a377864d41a1617aff7ea0ba33af52645}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ cosh(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Calculate(x));\ \}}
+\DoxyCodeLine{00364\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_cosh_node_a260a2d6975e2e7e14fce9f93ca69131f}{Clone}}()\textcolor{keyword}{\ const\ override}\{\ \textcolor{keywordflow}{return}\ std::make\_unique<CoshNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00365\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_cosh_node_a40d4adb0860493f931fcebcbd306cea0}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<MultNode>(std::make\_unique<SinhNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone()),\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>GetDerivative());\ \}}
+\DoxyCodeLine{00366\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_cosh_node_ae15f8df03140079556830b0bd3c45e3f}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}cosh("{}}\ +\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ \}}
+\DoxyCodeLine{00367\ \};}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00369\ \textcolor{keyword}{inline}\ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_sinh_node_a5520ae2a262a110317d1d7b8a0a6d6eb}{SinhNode::GetDerivative}}()\textcolor{keyword}{\ const\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<MultNode>(std::make\_unique<CoshNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone()),\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>GetDerivative());\ \}}
+\DoxyCodeLine{00370\ }
+\DoxyCodeLine{00374\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_tanh_node}{TanhNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_tanh_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode}}}
+\DoxyCodeLine{00375\ \{}
+\DoxyCodeLine{00376\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00377\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode::UnaryNode}};}
+\DoxyCodeLine{00378\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_tanh_node_aba1bec9ee246d6fa906c0236ac5de6dd}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ tanh(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Calculate(x));\ \}}
+\DoxyCodeLine{00379\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_tanh_node_a517920aa1d1216fe0e655e2eb76ca503}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<TanhNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00380\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_tanh_node_ad9ccd8e4cb3e16566d0bb3b929b3ce3a}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<DivNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>GetDerivative(),\ std::make\_unique<MultNode>(std::make\_unique<CoshNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone()),\ std::make\_unique<CoshNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone())));\ \}}
+\DoxyCodeLine{00381\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_tanh_node_a45caf33de6f1d8a2bfefde2832158071}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}tanh("{}}\ +\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ \}}
+\DoxyCodeLine{00382\ \};}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00387\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_asinh_node}{AsinhNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_asinh_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode}}}
+\DoxyCodeLine{00388\ \{}
+\DoxyCodeLine{00389\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00390\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode::UnaryNode}};}
+\DoxyCodeLine{00391\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_asinh_node_ad47e375aa6cc4b75f108e2f51bd6e536}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ asinh(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Calculate(x));\ \}}
+\DoxyCodeLine{00392\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_asinh_node_ade50ac961e752412a77e85fdaeb17f12}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<AsinhNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00393\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_asinh_node_ae0ba861da8880ba09467524281cafbc5}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<DivNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>GetDerivative(),\ std::make\_unique<SqrtNode>(std::make\_unique<AddNode>(std::make\_unique<MultNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone(),\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone()),\ std::make\_unique<ConstNode>(1.0f))));\ \}}
+\DoxyCodeLine{00394\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_asinh_node_a67f39688870ce11e520a0dbdfe4b6148}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}arcsinh("{}}\ +\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ \}}
+\DoxyCodeLine{00395\ \};}
+\DoxyCodeLine{00396\ }
+\DoxyCodeLine{00400\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_acosh_node}{AcoshNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_acosh_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode}}}
+\DoxyCodeLine{00401\ \{}
+\DoxyCodeLine{00402\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00403\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode::UnaryNode}};}
+\DoxyCodeLine{00404\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_acosh_node_ac353390cdfb4dcea45a62514f6bb9455}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ acosh(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Calculate(x));\ \}}
+\DoxyCodeLine{00405\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_acosh_node_adc31abeb5485e48f10fe92008ad9f2fb}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<AcoshNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00406\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_acosh_node_a1cfba0359fa9134e4e667c017bf872ea}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<DivNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>GetDerivative(),\ std::make\_unique<SqrtNode>(std::make\_unique<SubNode>(std::make\_unique<MultNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone(),\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone()),\ std::make\_unique<ConstNode>(1.0f))));\ \}}
+\DoxyCodeLine{00407\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_acosh_node_a2974b314bbd7cf401d01552eb36f3227}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}arccosh("{}}\ +\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ \}}
+\DoxyCodeLine{00408\ \};}
+\DoxyCodeLine{00409\ }
+\DoxyCodeLine{00413\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_atanh_node}{AtanhNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_atanh_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode}}}
+\DoxyCodeLine{00414\ \{}
+\DoxyCodeLine{00415\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00416\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode::UnaryNode}};}
+\DoxyCodeLine{00417\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_atanh_node_a954e5c6d69a3b7290fcc45ddf03c523a}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ atanh(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Calculate(x));\ \}}
+\DoxyCodeLine{00418\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_atanh_node_acfe2ba8b12f8e9f07991c3674330a318}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<AtanhNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00419\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_atanh_node_a4f66d7ec6ec8b2b790bef1e30533ef78}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<DivNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>GetDerivative(),\ std::make\_unique<SubNode>(std::make\_unique<ConstNode>(1.0f),\ std::make\_unique<MultNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone(),\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone())));\ \}}
+\DoxyCodeLine{00420\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_atanh_node_a579d146a32a61dea307af432cf012a7a}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}arctanh("{}}\ +\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ \}}
+\DoxyCodeLine{00421\ \};}
+\DoxyCodeLine{00422\ }
+\DoxyCodeLine{00426\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_log10_node}{Log10Node}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_log10_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode}}}
+\DoxyCodeLine{00427\ \{}
+\DoxyCodeLine{00428\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00429\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_unary_node_a2d4e361b9159b84d75bfd846341f1b05}{UnaryNode::UnaryNode}};}
+\DoxyCodeLine{00430\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_log10_node_a34f74c05a4c61e909b01cc56bbd9351e}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ log10(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Calculate(x));\ \}}
+\DoxyCodeLine{00431\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_log10_node_a926042b880de0164a4c3c87c22b2f79c}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<Log10Node>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00432\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_log10_node_ad5f477c432a33a454b15e00bf4270ac9}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<DivNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>GetDerivative(),\ std::make\_unique<MultNode>(\doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>Clone(),\ std::make\_unique<LnNode>(std::make\_unique<ConstNode>(10.0f))));\ \}}
+\DoxyCodeLine{00433\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_log10_node_a3fca92ecd303c6567045c28c29a9cd47}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}log10("{}}\ +\ \doxymbox{\hyperlink{class_unary_node_a197c92a00b30699e7f11d7cb34d6ad4b}{child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ \}}
+\DoxyCodeLine{00434\ \};}
+\DoxyCodeLine{00435\ }
+\DoxyCodeLine{00439\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_pow_node}{PowNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_pow_node_a2f92a401ec1f07ef15b2fbaa9772c39d}{BinaryNode}}}
+\DoxyCodeLine{00440\ \{}
+\DoxyCodeLine{00441\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00442\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_binary_node_a2f92a401ec1f07ef15b2fbaa9772c39d}{BinaryNode::BinaryNode}};}
+\DoxyCodeLine{00443\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_pow_node_ae4b96c4b8974078378b3e7dd37bdcb01}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ pow(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Calculate(x),\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Calculate(x));\ \}}
+\DoxyCodeLine{00444\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_pow_node_af8bf65ddf94a3b35667e637057f3bdd3}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<PowNode>(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Clone(),\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00445\ }
+\DoxyCodeLine{00453\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_pow_node_a16f67fc1de37bbf131a3a1277db09aa0}{GetDerivative}}()\textcolor{keyword}{\ const\ override\ }}
+\DoxyCodeLine{00454\ \textcolor{keyword}{\ \ \ \ }\{\ }
+\DoxyCodeLine{00455\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (\textcolor{keyword}{dynamic\_cast<}\doxymbox{\hyperlink{class_const_node}{ConstNode}}*\textcolor{keyword}{>}(\doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}.get())\ !=\ \textcolor{keyword}{nullptr})}
+\DoxyCodeLine{00456\ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_unique<MultNode>(std::make\_unique<MultNode>(\doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Clone(),std::make\_unique<PowNode>(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Clone(),std::make\_unique<ConstNode>(\doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Calculate(0.0f)\ -\/\ 1.0f))),\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>GetDerivative());}
+\DoxyCodeLine{00457\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ std::make\_unique<MultNode>(this-\/>\doxymbox{\hyperlink{class_pow_node_af8bf65ddf94a3b35667e637057f3bdd3}{Clone}}(),\ std::make\_unique<AddNode>(std::make\_unique<MultNode>(\doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>GetDerivative(),\ std::make\_unique<LnNode>(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Clone())),\ std::make\_unique<MultNode>(\doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Clone(),\ std::make\_unique<DivNode>(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>GetDerivative(),\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Clone()))));\ }
+\DoxyCodeLine{00458\ \ \ \ \ \}}
+\DoxyCodeLine{00459\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_pow_node_afc88a668ca523c247d3ce614cb0c555e}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}pow("{}}\ +\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ \}}
+\DoxyCodeLine{00460\ \};}
+\DoxyCodeLine{00461\ }
+\DoxyCodeLine{00465\ \textcolor{keyword}{class\ }\doxymbox{\hyperlink{class_log_node}{LogNode}}\ :\textcolor{keyword}{public}\ \doxymbox{\hyperlink{class_log_node_a2f92a401ec1f07ef15b2fbaa9772c39d}{BinaryNode}}}
+\DoxyCodeLine{00466\ \{}
+\DoxyCodeLine{00467\ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00468\ \ \ \ \ \textcolor{keyword}{using\ }\doxymbox{\hyperlink{class_binary_node_a2f92a401ec1f07ef15b2fbaa9772c39d}{BinaryNode::BinaryNode}};}
+\DoxyCodeLine{00469\ }
+\DoxyCodeLine{00475\ \ \ \ \ \textcolor{keywordtype}{float}\ \doxymbox{\hyperlink{class_log_node_a01781b2795cb0574f3a2a47bc0f93dd1}{Calculate}}(\textcolor{keywordtype}{float}\ x)\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ log(\doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Calculate(x))\ /\ log(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Calculate(x));\ \}}
+\DoxyCodeLine{00476\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_log_node_a732a400f5ac24f746fc0b86936f89d92}{Clone}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ std::make\_unique<LogNode>(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Clone(),\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Clone());\ \}}
+\DoxyCodeLine{00477\ \ \ \ \ std::unique\_ptr<Node>\ \doxymbox{\hyperlink{class_log_node_a8c4ae23b2464faca77ce0742472d1a43}{GetDerivative}}()\textcolor{keyword}{\ const\ override}\{\ \textcolor{keywordflow}{return}\ std::make\_unique<DivNode>(std::make\_unique<LnNode>(\doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>Clone()),\ std::make\_unique<LnNode>(\doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>Clone()))-\/>GetDerivative();\ \}}
+\DoxyCodeLine{00478\ \ \ \ \ std::string\ \doxymbox{\hyperlink{class_log_node_a4bcf335627b73b450a47ae7534eab4a8}{ToString}}()\textcolor{keyword}{\ const\ override\ }\{\ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}log("{}}\ +\ \doxymbox{\hyperlink{class_binary_node_a2a1b8e6ddbd17eb1724339387111d3bc}{left\_child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{},\ "{}}\ +\ \doxymbox{\hyperlink{class_binary_node_ac0bccfcc6d3cf2f86116299c6f11d0d2}{right\_child}}-\/>ToString()\ +\ \textcolor{stringliteral}{"{})"{}};\ \}}
+\DoxyCodeLine{00479\ \};}
+\DoxyCodeLine{00480\ }
+\DoxyCodeLine{00481\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ !FromulaTree\_h}}
+
+\end{DoxyCode}

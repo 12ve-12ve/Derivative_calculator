@@ -122,13 +122,13 @@ std::unique_ptr<Node> ModifyToRPN(std::vector<Token>& tokens)
     return CreateFormulaTree(RPN_output);
 }
 
-std::unique_ptr<Node> CreateBinFunNode(const std::string& str, std::unique_ptr<Node> left, std::unique_ptr<Node> right)
+std::unique_ptr<Node> CreateBinFunNode(const std::string& str, std::unique_ptr<Node> left, std::unique_ptr<Node> right)  
 {
     if (str == "+")
         return std::make_unique<AddNode>(std::move(left), std::move(right));
     else if (str == "-")
         return std::make_unique<SubNode>(std::move(left), std::move(right));
-    else if (str == "*")
+    else if (str == "*" || str == "")
         return std::make_unique<MultNode>(std::move(left), std::move(right));
     else if (str == "/")
         return std::make_unique<DivNode>(std::move(left), std::move(right));
