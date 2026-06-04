@@ -456,7 +456,12 @@ public:
 			return std::make_unique<MultNode>(std::make_unique<MultNode>(right_child->Clone(),std::make_unique<PowNode>(left_child->Clone(),std::make_unique<ConstNode>(right_child->Calculate(0.0f) - 1.0f))),left_child->GetDerivative());
 		return std::make_unique<MultNode>(this->Clone(), std::make_unique<AddNode>(std::make_unique<MultNode>(right_child->GetDerivative(), std::make_unique<LnNode>(left_child->Clone())), std::make_unique<MultNode>(right_child->Clone(), std::make_unique<DivNode>(left_child->GetDerivative(), left_child->Clone())))); 
 	}
-	std::string ToString() const override { return "pow(" + left_child->ToString() + ", " + right_child->ToString() + ")"; }
+	std::string ToString() const override { 
+		if (dynamic_cast<ConstNode*>(right_child.get()) != nullptr && right_child->Calculate(0.0f) == 1.0f)
+			return left_child->ToString();
+		else
+			return "pow(" + left_child->ToString() + ", " + right_child->ToString() + ")"; 
+	}
 };
 
 /**
