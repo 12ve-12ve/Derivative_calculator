@@ -50,7 +50,7 @@ class CalculatorApp
      * @brief Inserts a number, sign or function into formula string.
      * * This function inserts a text from a button that was pressed by the user into the formula string.
      * Before that it checks if there is enough free space for that text to be put into the string.
-     * * @param Sign Text from the button.
+     * * @param sign Text from the button.
      */
     void AddSign(const char* sign);
 
@@ -58,7 +58,7 @@ class CalculatorApp
      * @brief Renders one button that has a number on it.
      * * Function displays the sign parameter on the button. 
      * It changes color when is hovered and return true value if it's pressed.
-     * * @param Sign The text displayed on the button.
+     * * @param sign The text displayed on the button.
      * @return bool Indicates if the button was pressed.
      */
     bool NumberButton(const char* sign);
@@ -67,7 +67,7 @@ class CalculatorApp
      * @brief Renders one button that has a constant or an operation sign on it.
      * * Function displays the sign parameter on the button.
      * It changes color when is hovered and return true value if it's pressed.
-     * * @param Sign The text displayed on the button.
+     * * @param sign The text displayed on the button.
      * @return bool Indicates if the button was pressed.
      */
     bool SignAndOperationButton(const char* sign);
@@ -76,7 +76,7 @@ class CalculatorApp
      * @brief Renders one button that has a function on it.
      * * Function displays the sign parameter on the button.
      * It changes color when is hovered and return true value if it's pressed.
-     * * @param Sign The text displayed on the button.
+     * * @param sign The text displayed on the button.
      * @return bool Indicates if the button was pressed.
      */
     bool FunctionButton(const char* sign);
@@ -88,7 +88,7 @@ class CalculatorApp
 
     /**
      * @brief Renders a table of all of the FunctionButtons.
-     * * @param Width The size of the table.
+     * * @param width The size of the table.
      */
     void TabOfFunctions(float width);
 
